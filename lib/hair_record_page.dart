@@ -23,7 +23,7 @@ class HairRecordPage extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => HairDetailPage(
-              uName: data['U_name'],
+              //uName: data['U_name'],
               hairDensity: data['Hair_Density'],
               hairThickness: data['Hair_Thickness'],
               hairLossType: data['Hair_Loss_Type'],
@@ -84,16 +84,16 @@ class HairRecordPage extends StatelessWidget {
 }
 
 class HairDetailPage extends StatelessWidget {
-  final String uName;
+  //final String uName;
   final int hairDensity;
-  final double hairThickness;
+  final int hairThickness;
   final String hairLossType;
   final String scalpCondition;
   final int hairAge;
   final String date;
 
   HairDetailPage(
-      {required this.uName,
+      { //required this.uName,
       required this.hairDensity,
       required this.hairThickness,
       required this.hairLossType,
@@ -112,13 +112,13 @@ class HairDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('이름: $uName'),
-            SizedBox(height: 20),
+            // Text('이름: $uName'),
+            // SizedBox(height: 20),
             Text('분석 날짜: $date'),
             SizedBox(height: 20),
-            Text('모발 밀도: $hairDensity'),
+            Text('모발 밀도: 1cm²당 $hairDensity개'),
             SizedBox(height: 20),
-            Text('모발 두께: $hairThickness'),
+            Text('모발 두께: $hairThicknessμm(마이크로미터)'),
             SizedBox(height: 20),
             Text('탈모 유형: $hairLossType'),
             SizedBox(height: 20),
@@ -164,7 +164,7 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
         context,
         MaterialPageRoute(
           builder: (context) => HairDetailPage(
-            uName: data['U_name'],
+            //uName: data['U_name'],
             hairDensity: data['Hair_Density'],
             hairThickness: data['Hair_Thickness'],
             hairLossType: data['Hair_Loss_Type'],

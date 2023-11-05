@@ -14,15 +14,19 @@ class InputInfoPage extends StatefulWidget {
 class _InputInfoPageState extends State<InputInfoPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _nicknameController =
+      TextEditingController(); // 닉네임 컨트롤러 추가
   String? sex;
 
   Future<void> _sendData() async {
     final name = _nameController.text;
     final age = int.tryParse(_ageController.text);
+    final nickname = _nicknameController.text; // 닉네임 가져오기
 
-    if (name.isEmpty || age == null) {
+    // 이름, 나이 또는 닉네임이 비어 있으면 알림
+    if (name.isEmpty || age == null || nickname.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('이름과 나이를 올바르게 입력해주세요.')),
+        SnackBar(content: Text('이름, 나이, 닉네임을 올바르게 입력해주세요.')),
       );
       return;
     }
@@ -30,8 +34,13 @@ class _InputInfoPageState extends State<InputInfoPage> {
     final response = await http.post(
       Uri.parse('http://localhost:8080/api/submit_info'), // Your API Endpoint
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(
-          {'name': name, 'age': age, 'email': widget.email, 'sex': sex}),
+      body: json.encode({
+        'name': name,
+        'age': age,
+        'email': widget.email,
+        'sex': sex,
+        'nickname': nickname, // 서버로 닉네임 전송
+      }),
     );
 
     if (response.statusCode == 200) {
@@ -60,6 +69,17 @@ class _InputInfoPageState extends State<InputInfoPage> {
               decoration: InputDecoration(labelText: '이름'),
             ),
             SizedBox(height: 16.0),
+            TextField(
+              controller: _nicknameController,
+              decoration: InputDecoration(labelText: '닉네임'),
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _ageController,
+              decoration: InputDecoration(labelText: '나이'),
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 16.0),
             DropdownButton<String>(
               value: sex,
               hint: Text("성별 선택"), // 선택 전 힌트 텍스트
@@ -74,12 +94,6 @@ class _InputInfoPageState extends State<InputInfoPage> {
                   sex = newValue;
                 });
               },
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _ageController,
-              decoration: InputDecoration(labelText: '나이'),
-              keyboardType: TextInputType.number,
             ),
             SizedBox(height: 32.0),
             ElevatedButton(
