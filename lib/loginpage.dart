@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'legistrationscreen.dart';
 import 'findpassword.dart';
+import 'analysispage.dart';
+import 'recordpage.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -166,7 +168,14 @@ class _LogInState extends State<LogIn> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Analysispage()),
+                                );
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
@@ -180,7 +189,13 @@ class _LogInState extends State<LogIn> {
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Recordpage()),
+                                );
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
