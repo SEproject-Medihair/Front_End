@@ -187,6 +187,7 @@ class _LogInState extends State<LogIn> {
                             ),
                             const SizedBox(
                               width: 20,
+                              
                             ),
                             InkWell(
                               onTap: () {

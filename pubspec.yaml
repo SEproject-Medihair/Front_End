@@ -72,6 +72,7 @@ flutter:
     - assets/images/boldman.png
     - assets/images/lodingman.gif
     - assets/images/product.png
+    - assets/images/hairlossman.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
