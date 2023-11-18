@@ -154,6 +154,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -185,7 +187,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ],
               ),
               const SizedBox(
-                height: 8,
+                height: 15,
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 40),
@@ -210,7 +212,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                padding: EdgeInsets.fromLTRB(40, height * 0.1, 40, 20),
                 child: Column(children: [
                   TextField(
                     controller: _emailController,
@@ -224,7 +226,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           decoration: const InputDecoration(labelText: '인증코드'),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
@@ -260,6 +264,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     obscureText: true,
                   ),
                 ]),
+              ),
+              SizedBox(
+                height: height * 0.12,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

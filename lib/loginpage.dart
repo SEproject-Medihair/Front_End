@@ -6,6 +6,7 @@ import 'legistrationscreen.dart';
 import 'findpassword.dart';
 import 'analysispage.dart';
 import 'recordpage.dart';
+import 'chatpage.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -48,6 +49,8 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -60,8 +63,8 @@ class _LogInState extends State<LogIn> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: (EdgeInsets.only(top: 80)),
+              Padding(
+                padding: (EdgeInsets.only(top: width * 0.25)),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 34),
@@ -94,7 +97,7 @@ class _LogInState extends State<LogIn> {
                     ),
                   ),
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(40, 30, 40, 40),
+                    padding: EdgeInsets.fromLTRB(40, width * 0.2, 40, 40),
                     child: Column(
                       children: [
                         TextField(
@@ -111,7 +114,7 @@ class _LogInState extends State<LogIn> {
                             obscureText: true,
                             controller: _passwordController),
                         const SizedBox(
-                          height: 40.0,
+                          height: 70.0,
                         ),
                         ButtonTheme(
                           minWidth: 100.0,
@@ -187,7 +190,6 @@ class _LogInState extends State<LogIn> {
                             ),
                             const SizedBox(
                               width: 20,
-                              
                             ),
                             InkWell(
                               onTap: () {
@@ -210,7 +212,13 @@ class _LogInState extends State<LogIn> {
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Chatpage()),
+                                );
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
@@ -222,13 +230,21 @@ class _LogInState extends State<LogIn> {
                             ),
                           ],
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(20),
+                        Padding(
+                          padding: EdgeInsets.all(width * 0.18),
                         ),
                         const Text(
-                          '-L Garana-',
+                          '-쑥쑥-',
                           style: TextStyle(
                             fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromARGB(175, 0, 0, 0),
+                          ),
+                        ),
+                        const Text(
+                          '나만의 모발비서',
+                          style: TextStyle(
+                            fontSize: 15,
                             fontWeight: FontWeight.w500,
                             color: Color.fromARGB(175, 0, 0, 0),
                           ),

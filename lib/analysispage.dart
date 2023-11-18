@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'analysisloding.dart';
+import 'remotecontrol.dart';
 
 class Analysispage extends StatefulWidget {
   const Analysispage({super.key});
@@ -11,6 +12,8 @@ class Analysispage extends StatefulWidget {
 class _AnalysispageState extends State<Analysispage> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFFF9F2E7),
@@ -20,8 +23,8 @@ class _AnalysispageState extends State<Analysispage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: (EdgeInsets.only(top: 30)),
+              Padding(
+                padding: (EdgeInsets.only(top: height * 0.05)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -36,14 +39,19 @@ class _AnalysispageState extends State<Analysispage> {
                     icon: const Icon(Icons.arrow_back_rounded,
                         color: Color(0xFF51370E), size: 32),
                   ),
-                  const SizedBox(
-                    width: 90,
+                  SizedBox(
+                    width: width * 0.25,
                   ),
-                  const Text(
+                ],
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     '모발분석',
                     style: TextStyle(
                       color: Color(0xFF51370E),
-                      fontSize: 17,
+                      fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
                   )
@@ -58,7 +66,7 @@ class _AnalysispageState extends State<Analysispage> {
                   Text(
                     '연결중 ',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: Color.fromARGB(202, 85, 83, 79),
                     ),
@@ -66,15 +74,15 @@ class _AnalysispageState extends State<Analysispage> {
                   Text(
                     'MEDI HAIR-HGN1',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF51370E),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: height * 0.13,
               ),
               SizedBox(
                 width: 270,
@@ -170,8 +178,8 @@ class _AnalysispageState extends State<Analysispage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: height * 0.08,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +220,14 @@ class _AnalysispageState extends State<Analysispage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Remotecontrol(),
+                        ),
+                      );
+                    },
                     child: const Icon(Icons.replay_rounded),
                   ),
                 ],

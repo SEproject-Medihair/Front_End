@@ -21,8 +21,8 @@ class _AnalysisresultState extends State<Analysisresult> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: (EdgeInsets.only(top: 30)),
+              Padding(
+                padding: (EdgeInsets.only(top: width * 0.1)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -40,56 +40,68 @@ class _AnalysisresultState extends State<Analysisresult> {
                   const SizedBox(
                     width: 90,
                   ),
-                  const Text(
+                ],
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     '모발분석',
                     style: TextStyle(
                       color: Color(0xFF51370E),
-                      fontSize: 17,
+                      fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: height * 0.04,
               ),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 25,
                   ),
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "OO님의",
+                        "안효성님의",
                         style: TextStyle(
                             color: Color(0xFF51370E),
-                            fontSize: 15,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700),
                       ),
                       Text(
                         "모발 분석 결과:",
                         style: TextStyle(
                             color: Color(0xFF51370E),
-                            fontSize: 15,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
+                  SizedBox(
+                    width: width * 0.36,
+                  ),
+                  SizedBox(
+                    width: width * 0.18,
+                    child: Image.asset(
+                      'assets/images/hairlossman.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 35,
-              ),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 25,
                   ),
                   Column(
                     children: [
-                      Text(
+                      const Text(
                         "탈모 유형: ",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -98,9 +110,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: height * 0.04,
                       ),
-                      Text(
+                      const Text(
                         "모발 밀도: ",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -109,9 +121,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: height * 0.04,
                       ),
-                      Text(
+                      const Text(
                         "모발 두께: ",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -120,9 +132,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: height * 0.04,
                       ),
-                      Text(
+                      const Text(
                         "탈모 상태: ",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -136,7 +148,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         " 전면 탈모",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -145,9 +157,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 12,
+                        height: height * 0.033,
                       ),
-                      Text(
+                      const Text(
                         " 13(1cm²당)",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -156,9 +168,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 12,
+                        height: height * 0.033,
                       ),
-                      Text(
+                      const Text(
                         " 45(µm)",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -167,9 +179,9 @@ class _AnalysisresultState extends State<Analysisresult> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: height * 0.033,
                       ),
-                      Text(
+                      const Text(
                         " 심각",
                         style: TextStyle(
                           color: Color(0xFF51370E),
@@ -181,8 +193,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: height * 0.04,
               ),
               Container(
                 width: width,
@@ -199,12 +211,12 @@ class _AnalysisresultState extends State<Analysisresult> {
                           "추천케어:",
                           style: TextStyle(
                             color: Color(0xFF51370E),
-                            fontSize: 15,
+                            fontSize: 17,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         Text(
                           "프론트케어 모드 | 18분",
@@ -215,13 +227,13 @@ class _AnalysisresultState extends State<Analysisresult> {
                           ),
                         ),
                         SizedBox(
-                          height: 14,
+                          height: 18,
                         ),
                         Text(
                           "앞머리 뒷머리 집중 케어",
                           style: TextStyle(
                             color: Color(0xFF51370E),
-                            fontSize: 15,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -234,8 +246,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 100,
-                          height: 120,
+                          width: 140,
+                          height: 170,
                           child: Image.asset(
                             'assets/images/product.png',
                             fit: BoxFit.contain,
@@ -246,8 +258,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: height * 0.03,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

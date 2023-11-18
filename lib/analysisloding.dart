@@ -38,17 +38,18 @@ class _AnalysislodingState extends State<Analysisloding> {
             child: const Scaffold(
               backgroundColor: Colors.black87,
               body: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(0.5),
                 child: Center(),
               ),
             ),
           ),
         ),
         Positioned(
-          top: height * 0.2,
-          left: width * 0.1,
+          top: height * 0.03,
           child: Image.asset(
-            'assets/images/product.png',
+            width: width * 0.98,
+            height: height * 0.98,
+            'assets/images/Analyzing.gif',
             fit: BoxFit.contain,
           ),
         ),

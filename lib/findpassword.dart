@@ -11,6 +11,8 @@ class Findpassword extends StatefulWidget {
 class _FindpasswordState extends State<Findpassword> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -41,8 +43,8 @@ class _FindpasswordState extends State<Findpassword> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: height * 0.1,
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 40),
@@ -54,7 +56,7 @@ class _FindpasswordState extends State<Findpassword> {
                         Text(
                           '비밀번호 찾기',
                           style: TextStyle(
-                              fontSize: 35, fontWeight: FontWeight.w900),
+                              fontSize: 35, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -62,7 +64,7 @@ class _FindpasswordState extends State<Findpassword> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(40, 30, 40, 20),
+                padding: EdgeInsets.fromLTRB(40, height * 0.15, 40, 20),
                 child: const Column(children: [
                   TextField(
                     decoration: InputDecoration(

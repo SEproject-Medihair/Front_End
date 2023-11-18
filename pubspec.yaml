@@ -35,6 +35,7 @@ dependencies:
   http: ^0.13.3
   crypto: ^3.0.1
   webview_flutter: ^3.0.0
+  fl_chart: ^0.64.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -73,6 +74,8 @@ flutter:
     - assets/images/lodingman.gif
     - assets/images/product.png
     - assets/images/hairlossman.png
+    - assets/images/Analyzing.gif
+    - assets/images/myphoto.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

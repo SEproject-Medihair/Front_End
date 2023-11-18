@@ -33,6 +33,8 @@ class _RepasswordState extends State<Repassword> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -63,8 +65,8 @@ class _RepasswordState extends State<Repassword> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: height * 0.1,
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 40),
@@ -76,7 +78,7 @@ class _RepasswordState extends State<Repassword> {
                         Text(
                           '비밀번호 변경',
                           style: TextStyle(
-                              fontSize: 35, fontWeight: FontWeight.w900),
+                              fontSize: 35, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -84,7 +86,7 @@ class _RepasswordState extends State<Repassword> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                padding: EdgeInsets.fromLTRB(40, height * 0.1, 40, 20),
                 child: Column(children: [
                   TextField(
                     decoration: InputDecoration(
@@ -133,8 +135,8 @@ class _RepasswordState extends State<Repassword> {
                   ),
                 ]),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: height * 0.07,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
