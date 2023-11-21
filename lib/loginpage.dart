@@ -31,9 +31,19 @@ class _LogInState extends State<LogIn> {
     if (!mounted) return;
 
     if (response.statusCode == 200) {
-      Navigator.push(
+      final responseData = json.decode(response.body);
+      final userEmail = responseData['email'];
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          content: Text('로그인에 성공하셨습니다'),
+        ),
+      );
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Analysispage()),
+        MaterialPageRoute(
+          builder: (context) => Analysispage(email: userEmail),
+        ),
       );
     } else {
       showDialog(
@@ -169,7 +179,14 @@ class _LogInState extends State<LogIn> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Analysispage(email: '')),
+                                );
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(

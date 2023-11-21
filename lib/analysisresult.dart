@@ -1,14 +1,62 @@
 import 'package:flutter/material.dart';
-import 'mainpage.dart';
+import 'package:hairapp/mainpage.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Analysisresult extends StatefulWidget {
-  const Analysisresult({super.key});
+  final String email;
+  const Analysisresult({super.key, required this.email});
 
   @override
-  State<Analysisresult> createState() => _AnalysisresultState();
+  _AnalysisresultState createState() => _AnalysisresultState(email: email);
 }
 
 class _AnalysisresultState extends State<Analysisresult> {
+  final String email;
+  _AnalysisresultState({required this.email});
+  String name = '';
+  int hairDensity = 0;
+  int hairThickness = 0;
+  String hairLossType = '';
+  String scalpCondition = '';
+  int hairAge = 0;
+  String date = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _sendEmail();
+  }
+
+  Future<void> _sendEmail() async {
+    final Uri url = Uri.parse('https://medihair.ngrok.io/api/Today_condition');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': widget.email}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      setState(() {
+        name = responseData['name'];
+        var hairData = responseData['modifiedResult'];
+        hairDensity = hairData['Hair_Density'];
+        hairThickness = hairData['Hair_Thickness'];
+        hairLossType = hairData['Hair_Loss_Type'];
+        scalpCondition = hairData['Scalp_Condition'];
+        hairAge = hairData['Hair_Age'];
+        date = hairData['Date'];
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('오늘 모발 분석을 실시하지 않았습니다'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -64,11 +112,11 @@ class _AnalysisresultState extends State<Analysisresult> {
                   const SizedBox(
                     width: 25,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "안효성님의",
+                        "$name님의",
                         style: TextStyle(
                             color: Color(0xFF51370E),
                             fontSize: 18,
@@ -149,8 +197,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        " 전면 탈모",
+                      Text(
+                        " $hairLossType",
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
@@ -160,8 +208,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                       SizedBox(
                         height: height * 0.033,
                       ),
-                      const Text(
-                        " 13(1cm²당)",
+                      Text(
+                        " $hairDensity(1cm²당)",
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
@@ -171,8 +219,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                       SizedBox(
                         height: height * 0.033,
                       ),
-                      const Text(
-                        " 45(µm)",
+                      Text(
+                        " $hairThickness(µm)",
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
@@ -182,8 +230,8 @@ class _AnalysisresultState extends State<Analysisresult> {
                       SizedBox(
                         height: height * 0.033,
                       ),
-                      const Text(
-                        " 심각",
+                      Text(
+                        " $scalpCondition",
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
@@ -275,13 +323,12 @@ class _AnalysisresultState extends State<Analysisresult> {
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Mainpage()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => Mainpage(email: email))));
                     },
                     child: const Text(
-                      '메인으로 가기',
+                      '메인으로',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),

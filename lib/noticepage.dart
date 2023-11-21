@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'settingpage.dart';
 import 'mainpage.dart';
+//import 'profile.dart';
 
 class Noticepage extends StatefulWidget {
   const Noticepage({super.key});
@@ -10,6 +11,7 @@ class Noticepage extends StatefulWidget {
 }
 
 class _NoticepageState extends State<Noticepage> {
+  String email = '';
   bool _isSwitched = false;
 
   @override
@@ -42,7 +44,7 @@ class _NoticepageState extends State<Noticepage> {
           SizedBox(
             width: width,
             height: height * 0.737,
-            child: Stack(
+            child: Column(
               children: [
                 Positioned(
                   left: 0,
@@ -163,7 +165,7 @@ class _NoticepageState extends State<Noticepage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Mainpage()),
+                              builder: (context) => Mainpage(email: email)),
                         );
                       },
                       icon: const Icon(
@@ -199,7 +201,7 @@ class _NoticepageState extends State<Noticepage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Mainpage()),
+                              builder: (context) => Mainpage(email: email)),
                         );
                       },
                       icon: const Icon(

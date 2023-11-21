@@ -7,13 +7,16 @@ import 'noticepage.dart';
 import 'profile.dart';
 
 class Mainpage extends StatefulWidget {
-  const Mainpage({super.key});
+  final String email;
+  const Mainpage({super.key, required this.email});
 
   @override
-  State<Mainpage> createState() => _MainpageState();
+  State<Mainpage> createState() => _MainpageState(email: email);
 }
 
 class _MainpageState extends State<Mainpage> {
+  final String email;
+  _MainpageState({required this.email});
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -78,7 +81,7 @@ class _MainpageState extends State<Mainpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Analysispage()),
+                            builder: (context) => Analysispage(email: email)),
                       );
                     },
                     child: Positioned(
@@ -146,7 +149,7 @@ class _MainpageState extends State<Mainpage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Recordpage()),
+                              builder: (context) => Recordpage(email: email)),
                         );
                       },
                       child: SizedBox(
