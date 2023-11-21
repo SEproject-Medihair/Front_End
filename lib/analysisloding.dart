@@ -3,13 +3,16 @@ import 'dart:async';
 import 'analysisresult.dart';
 
 class Analysisloding extends StatefulWidget {
-  const Analysisloding({super.key});
+  final String email;
+  const Analysisloding({super.key, required this.email});
 
   @override
-  State<Analysisloding> createState() => _AnalysislodingState();
+  State<Analysisloding> createState() => _AnalysislodingState(email: email);
 }
 
 class _AnalysislodingState extends State<Analysisloding> {
+  final String email;
+  _AnalysislodingState({required this.email});
   @override
   void initState() {
     super.initState();
@@ -17,7 +20,7 @@ class _AnalysislodingState extends State<Analysisloding> {
       const Duration(seconds: 4),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Analysisresult()),
+        MaterialPageRoute(builder: (context) => Analysisresult(email: email)),
       ),
     );
   }

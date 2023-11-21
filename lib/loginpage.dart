@@ -21,7 +21,7 @@ class _LogInState extends State<LogIn> {
 
   Future<void> _login() async {
     final response = await http.post(
-      Uri.parse('http://localhost:8080/api/login'),
+      Uri.parse('https://medihair.ngrok.io/api/login'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'email': _emailController.text,
@@ -31,10 +31,18 @@ class _LogInState extends State<LogIn> {
     if (!mounted) return;
 
     if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final userEmail = responseData['email'];
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           content: Text('로그인에 성공하셨습니다'),
+        ),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Analysispage(email: userEmail),
         ),
       );
     } else {
@@ -176,7 +184,7 @@ class _LogInState extends State<LogIn> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Analysispage()),
+                                          const Analysispage(email: '')),
                                 );
                               },
                               child: ClipRRect(
