@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mainpage.dart';
 
 class Analysisresult extends StatefulWidget {
   const Analysisresult({super.key});
@@ -272,9 +273,15 @@ class _AnalysisresultState extends State<Analysisresult> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Mainpage()),
+                      );
+                    },
                     child: const Text(
-                      '케어 진행 하기',
+                      '메인으로 가기',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),

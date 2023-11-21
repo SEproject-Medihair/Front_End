@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'mainpage.dart';
+import 'noticepage.dart';
+import 'profile.dart';
 
 class Settingpage extends StatefulWidget {
   const Settingpage({super.key});
@@ -165,7 +168,13 @@ class _SettingpageState extends State<Settingpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Mainpage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.home_outlined,
                           size: 35,
@@ -180,7 +189,13 @@ class _SettingpageState extends State<Settingpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Noticepage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.notifications,
                           size: 35,
@@ -195,7 +210,13 @@ class _SettingpageState extends State<Settingpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profilepage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.person,
                           size: 35,

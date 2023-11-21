@@ -241,7 +241,11 @@ class _SurveypageState extends State<Surveypage> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                      );
+                    },
                     child: const Text(
                       '제출',
                       style:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'surveypage.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
@@ -160,18 +161,27 @@ class _ProfilepageState extends State<Profilepage> {
               Container(
                 width: width,
                 height: height * 0.1,
-                padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
+                padding: const EdgeInsets.fromLTRB(13, 20, 0, 15),
                 color: Colors.white,
-                child: const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "설문조사",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Surveypage()),
+                        );
+                      },
+                      child: const Text(
+                        "설문조사",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    )
                   ],
                 ),
               ),
