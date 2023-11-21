@@ -231,7 +231,7 @@ class _LogInState extends State<LogIn> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.all(width * 0.18),
+                          padding: EdgeInsets.all(width * 0.15),
                         ),
                         const Text(
                           '-쑥쑥-',
