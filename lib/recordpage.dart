@@ -1,14 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:hairapp/graph.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Recordpage extends StatefulWidget {
-  const Recordpage({Key? key}) : super(key: key);
+  final String email; // 이메일을 받아오도록 추가
+
+  const Recordpage({Key? key, required this.email}) : super(key: key);
 
   @override
   State<Recordpage> createState() => _RecordpageState();
 }
 
 class _RecordpageState extends State<Recordpage> {
+  List<String> dates = []; // 날짜 목록을 저장할 리스트 추가
+
+  // fetchDates 함수를 _fetchDates로 변경하고 initState에서 호출
+  Future<void> _fetchDates() async {
+    try {
+      final Uri url = Uri.parse('https://medihair.ngrok.io/api/Choose_date');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': widget.email}),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        List<String> fetchedDates =
+            data.map((date) => date.toString()).toList();
+        setState(() {
+          dates = fetchedDates; // 날짜 목록 업데이트
+        });
+      } else {
+        throw Exception('Failed to load dates from the server');
+      }
+    } catch (e) {
+      // 오류 처리
+      print('Error fetching dates: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDates(); // 페이지가 초기화될 때 날짜를 가져옵니다.
+  }
+
   bool istodayscreen = true;
   @override
   Widget build(BuildContext context) {
@@ -225,6 +263,24 @@ class _RecordpageState extends State<Recordpage> {
                       ),
                       const SizedBox(
                         height: 15,
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: dates.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                              dates[index],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
+                            ),
+                            onTap: () {
+                              // 클릭한 날짜 처리 로직을 여기에 추가하세요.
+                            },
+                          );
+                        },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
