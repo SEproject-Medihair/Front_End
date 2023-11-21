@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'settingpage.dart';
 import 'mainpage.dart';
-import 'profile.dart';
 
 class Noticepage extends StatefulWidget {
   const Noticepage({super.key});
@@ -43,7 +42,7 @@ class _NoticepageState extends State<Noticepage> {
           SizedBox(
             width: width,
             height: height * 0.737,
-            child: Column(
+            child: Stack(
               children: [
                 Positioned(
                   left: 0,
