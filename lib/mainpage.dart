@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hairapp/recordpage.dart';
+import 'settingpage.dart';
+import 'analysispage.dart';
+import 'chatpage.dart';
+import 'noticepage.dart';
+import 'profile.dart';
 
 class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
@@ -68,7 +74,13 @@ class _MainpageState extends State<Mainpage> {
                 children: [
                   InkWell(
                     //--- 모발분석
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Analysispage()),
+                      );
+                    },
                     child: Positioned(
                       left: 0,
                       top: 0,
@@ -130,7 +142,13 @@ class _MainpageState extends State<Mainpage> {
                     top: 0,
                     child: InkWell(
                       //--- 분석기록
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Recordpage()),
+                        );
+                      },
                       child: SizedBox(
                         width: 150,
                         height: 170,
@@ -256,7 +274,12 @@ class _MainpageState extends State<Mainpage> {
                     top: 190,
                     child: InkWell(
                       //---챗봇
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Chatpage()),
+                        );
+                      },
                       child: SizedBox(
                         width: 150,
                         height: 170,
@@ -346,7 +369,13 @@ class _MainpageState extends State<Mainpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Settingpage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.settings,
                           size: 35,
@@ -376,7 +405,13 @@ class _MainpageState extends State<Mainpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Noticepage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.notifications,
                           size: 35,
@@ -391,7 +426,13 @@ class _MainpageState extends State<Mainpage> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profilepage()),
+                          );
+                        },
                         icon: const Icon(
                           Icons.person,
                           size: 35,

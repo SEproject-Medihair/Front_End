@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'surveypage.dart';
-import 'settingpage.dart';
-import 'mainpage.dart';
-import 'noticepage.dart';
-import 'camera.dart';
 
 class Remotecontrol extends StatefulWidget {
   const Remotecontrol({super.key});
@@ -125,13 +119,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Profilepage()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Icon(
                       Icons.pause,
                       size: 25,
@@ -147,13 +135,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Surveypage()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Icon(
                       Icons.power_settings_new,
                       size: 25,
@@ -169,13 +151,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Settingpage()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Icon(
                       Icons.play_arrow,
                       size: 25,
@@ -196,13 +172,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Mainpage()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Text(
                       '토탈케어 모드',
                       style: TextStyle(fontWeight: FontWeight.w600),
@@ -218,13 +188,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Noticepage()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Text(
                       '프론트케어 모드',
                       style: TextStyle(fontWeight: FontWeight.w600),
@@ -242,12 +206,7 @@ class _RemotecontrolState extends State<Remotecontrol> {
                         backgroundColor: const Color(0xFFFAE6C8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Camera()),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Text(
                       '탑케어 모드',
                       style: TextStyle(fontWeight: FontWeight.w600),

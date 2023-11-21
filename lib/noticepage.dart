@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'settingpage.dart';
+import 'mainpage.dart';
+import 'profile.dart';
 
 class Noticepage extends StatefulWidget {
   const Noticepage({super.key});
@@ -136,7 +139,13 @@ class _NoticepageState extends State<Noticepage> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Settingpage()),
+                        );
+                      },
                       icon: const Icon(
                         Icons.settings,
                         size: 35,
@@ -151,7 +160,13 @@ class _NoticepageState extends State<Noticepage> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Mainpage()),
+                        );
+                      },
                       icon: const Icon(
                         Icons.home_outlined,
                         size: 35,
@@ -181,7 +196,13 @@ class _NoticepageState extends State<Noticepage> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Mainpage()),
+                        );
+                      },
                       icon: const Icon(
                         Icons.person,
                         size: 35,

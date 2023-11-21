@@ -3,16 +3,13 @@ import 'analysisloding.dart';
 import 'remotecontrol.dart';
 
 class Analysispage extends StatefulWidget {
-  final String email;
-  const Analysispage({super.key, required this.email});
+  const Analysispage({super.key});
 
   @override
-  State<Analysispage> createState() => _AnalysispageState(email: email);
+  State<Analysispage> createState() => _AnalysispageState();
 }
 
 class _AnalysispageState extends State<Analysispage> {
-  final String email;
-  _AnalysispageState({required this.email});
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -199,7 +196,7 @@ class _AnalysispageState extends State<Analysispage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Analysisloding(email: email),
+                          builder: (context) => const Analysisloding(),
                         ),
                       );
                     },
