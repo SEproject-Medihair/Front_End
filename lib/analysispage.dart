@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'analysisloding.dart';
-import 'remotecontrol.dart';
+
 
 class Analysispage extends StatefulWidget {
   final String email;
@@ -223,14 +223,7 @@ class _AnalysispageState extends State<Analysispage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Remotecontrol(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: const Icon(Icons.replay_rounded),
                   ),
                 ],

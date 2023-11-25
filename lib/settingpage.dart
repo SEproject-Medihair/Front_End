@@ -43,11 +43,11 @@ class _SettingpageState extends State<Settingpage> {
             SizedBox(
               width: width,
               height: height * 0.72,
-              child: Column(
+              child: Stack(
                 children: [
                   Positioned(
                     left: 0,
-                    top: 0,
+                    top: 2,
                     child: Container(
                       width: width,
                       height: height * 0.07,
@@ -69,76 +69,76 @@ class _SettingpageState extends State<Settingpage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: width,
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    width: width,
-                    height: height * 0.07,
-                    color: const Color(0xFFFFFDF9),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: width * 0.1,
-                          top: height * 0.023,
-                          child: const Text(
-                            '메디헤어 가이드라인',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
+                  Positioned(
+                    left: 0,
+                    top: 80,
+                    child: Container(
+                      width: width,
+                      height: height * 0.07,
+                      color: const Color(0xFFFFFDF9),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: width * 0.1,
+                            top: height * 0.023,
+                            child: const Text(
+                              '메디헤어 가이드라인',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: width,
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    width: width,
-                    height: height * 0.07,
-                    color: const Color(0xFFFFFDF9),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: width * 0.1,
-                          top: height * 0.023,
-                          child: const Text(
-                            '다크모드',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
+                  Positioned(
+                    left: 0,
+                    top: 160,
+                    child: Container(
+                      width: width,
+                      height: height * 0.07,
+                      color: const Color(0xFFFFFDF9),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: width * 0.1,
+                            top: height * 0.023,
+                            child: const Text(
+                              '다크모드',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: width,
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    width: width,
-                    height: height * 0.07,
-                    color: const Color(0xFFFFFDF9),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: width * 0.1,
-                          top: height * 0.023,
-                          child: const Text(
-                            '고객지원',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
+                  Positioned(
+                    left: 0,
+                    top: 240,
+                    child: Container(
+                      width: width,
+                      height: height * 0.07,
+                      color: const Color(0xFFFFFDF9),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: width * 0.1,
+                            top: height * 0.023,
+                            child: const Text(
+                              '고객지원',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

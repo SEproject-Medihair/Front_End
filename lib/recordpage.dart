@@ -41,6 +41,37 @@ class _RecordpageState extends State<Recordpage> {
     }
   }
 
+  Future<List<int>> _fetchHairDetails(BuildContext context, String date) async {
+    final Uri url = Uri.parse('https://medihair.ngrok.io/api/Record_choice');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': widget.email, 'date': date}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final hairData = responseData['modifiedResult'];
+
+      print(hairData['Hair_Density']);
+      print(hairData['Hair_Thickness']);
+      if (hairData['Hair_Density'] is int &&
+          hairData['Hair_Thickness'] is int) {
+        return [hairData['Hair_Density'], hairData['Hair_Thickness']];
+      } else {
+        // int로 변환할 수 없는 경우, 기본값이나 에러 처리를 하거나 원하는 작업을 수행합니다.
+        return [0, 0]; // 예: 기본값으로 0을 반환
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('선택된 날짜에 대한 데이터를 불러오는 데 실패했습니다.'),
+        ),
+      );
+      throw Exception('데이터를 불러오는 데 실패했습니다.');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -264,23 +295,30 @@ class _RecordpageState extends State<Recordpage> {
                       const SizedBox(
                         height: 15,
                       ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: dates.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                              dates[index],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                              ),
-                            ),
-                            onTap: () {
-                              // 클릭한 날짜 처리 로직을 여기에 추가하세요.
+                      SingleChildScrollView(
+                        child: Container(
+                          height: 100,
+                          width: 130,
+                          color: Colors.yellow[100],
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: dates.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(
+                                  dates[index],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                onTap: () {
+                                  _fetchHairDetails(context, dates[index]);
+                                },
+                              );
                             },
-                          );
-                        },
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -352,7 +390,7 @@ class _RecordpageState extends State<Recordpage> {
                             width: 5,
                           ),
                           Text(
-                            "13",
+                            '13',
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 28,

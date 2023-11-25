@@ -5,8 +5,6 @@ import 'dart:async';
 import 'legistrationscreen.dart';
 import 'findpassword.dart';
 import 'analysispage.dart';
-import 'recordpage.dart';
-import 'chatpage.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -18,6 +16,7 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String email = '';
 
   Future<void> _login() async {
     final response = await http.post(
@@ -179,14 +178,7 @@ class _LogInState extends State<LogIn> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Analysispage(email: '')),
-                                );
-                              },
+                              onTap: () {},
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
@@ -200,13 +192,7 @@ class _LogInState extends State<LogIn> {
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Recordpage()),
-                                );
-                              },
+                              onTap: () {},
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
@@ -220,13 +206,7 @@ class _LogInState extends State<LogIn> {
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Chatpage()),
-                                );
-                              },
+                              onTap: () {},
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(

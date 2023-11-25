@@ -44,7 +44,7 @@ class _NoticepageState extends State<Noticepage> {
           SizedBox(
             width: width,
             height: height * 0.737,
-            child: Column(
+            child: Stack(
               children: [
                 Positioned(
                   left: 0,

@@ -8,6 +8,7 @@ import 'profile.dart';
 
 class Mainpage extends StatefulWidget {
   final String email;
+
   const Mainpage({super.key, required this.email});
 
   @override
@@ -15,6 +16,7 @@ class Mainpage extends StatefulWidget {
 }
 
 class _MainpageState extends State<Mainpage> {
+  DateTime? currentBackPressTime;
   final String email;
   _MainpageState({required this.email});
   @override

@@ -50,7 +50,7 @@ class _AnalysisresultState extends State<Analysisresult> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('오늘 모발 분석을 실시하지 않았습니다'),
         ),
       );
@@ -117,12 +117,12 @@ class _AnalysisresultState extends State<Analysisresult> {
                     children: [
                       Text(
                         "$name님의",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xFF51370E),
                             fontSize: 18,
                             fontWeight: FontWeight.w700),
                       ),
-                      Text(
+                      const Text(
                         "모발 분석 결과:",
                         style: TextStyle(
                             color: Color(0xFF51370E),
@@ -199,7 +199,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                     children: [
                       Text(
                         " $hairLossType",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -210,7 +210,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                       ),
                       Text(
                         " $hairDensity(1cm²당)",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -221,7 +221,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                       ),
                       Text(
                         " $hairThickness(µm)",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -232,7 +232,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                       ),
                       Text(
                         " $scalpCondition",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -322,10 +322,13 @@ class _AnalysisresultState extends State<Analysisresult> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => Mainpage(email: email))));
+                              builder: (context) => Mainpage(
+                                    email: email,
+                                  )),
+                          (route) => false);
                     },
                     child: const Text(
                       '메인으로',
