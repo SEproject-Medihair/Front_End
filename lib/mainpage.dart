@@ -18,21 +18,15 @@ class Mainpage extends StatefulWidget {
 
 class _MainpageState extends State<Mainpage> {
   final List<String> imagePaths = [
-    'assets/images/product.png',
-    'assets/images/chatbot.png',
-    'assets/images/Naverimage.png',
-    'assets/images/myphoto.png',
-    'assets/images/Kakaoimage.png',
-    'assets/images/history.png',
+    'assets/images/hairloss_site1.png',
+    'assets/images/hairloss_site2.png',
+    'assets/images/hairloss_site3.png',
   ];
 
   final List<String> destinationUrls = [
-    'https://www.naver.com/',
-    'https://www.google.com/',
-    'https://www.yahoo.com/',
-    'https://www.bing.com/',
-    'https://www.github.com/',
-    'https://www.stackoverflow.com/',
+    'https://daedamo.com/new/',
+    'https://cafe.naver.com/gameguidel',
+    'https://cafe.naver.com/imaban',
   ];
 
   DateTime? currentBackPressTime;
@@ -393,11 +387,12 @@ class _MainpageState extends State<Mainpage> {
                         }
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(3.0),
                         child: Image.asset(
                           imagePaths[index],
-                          width: 150,
+                          width: 300,
                           height: 150,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     );
