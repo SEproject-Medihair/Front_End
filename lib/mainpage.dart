@@ -5,6 +5,7 @@ import 'analysispage.dart';
 import 'chatpage.dart';
 import 'noticepage.dart';
 import 'profile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Mainpage extends StatefulWidget {
   final String email;
@@ -16,6 +17,24 @@ class Mainpage extends StatefulWidget {
 }
 
 class _MainpageState extends State<Mainpage> {
+  final List<String> imagePaths = [
+    'assets/images/product.png',
+    'assets/images/chatbot.png',
+    'assets/images/Naverimage.png',
+    'assets/images/myphoto.png',
+    'assets/images/Kakaoimage.png',
+    'assets/images/history.png',
+  ];
+
+  final List<String> destinationUrls = [
+    'https://www.naver.com/',
+    'https://www.google.com/',
+    'https://www.yahoo.com/',
+    'https://www.bing.com/',
+    'https://www.github.com/',
+    'https://www.stackoverflow.com/',
+  ];
+
   DateTime? currentBackPressTime;
   final String email;
   _MainpageState({required this.email});
@@ -352,12 +371,37 @@ class _MainpageState extends State<Mainpage> {
               width: 330,
               height: 185.62,
               decoration: ShapeDecoration(
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/product.png"),
-                  fit: BoxFit.fill,
-                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: imagePaths.length,
+                  itemBuilder: (context, index) {
+                    if (index >= imagePaths.length) {
+                      return null; // 인덱스가 범위를 벗어나면 더 이상 아이템을 렌더링하지 않음
+                    }
+                    return GestureDetector(
+                      onTap: () async {
+                        final url = destinationUrls[index];
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          imagePaths[index],
+                          width: 150,
+                          height: 150,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

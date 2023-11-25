@@ -246,7 +246,10 @@ class _RemotecontrolState extends State<Remotecontrol> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Camera()),
+                        MaterialPageRoute(
+                            builder: (context) => Camera(
+                                  email: email,
+                                )),
                       );
                     },
                     child: const Text(

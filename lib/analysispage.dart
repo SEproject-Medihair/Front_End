@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hairapp/camera.dart';
 import 'analysisloding.dart';
-
 
 class Analysispage extends StatefulWidget {
   final String email;
@@ -223,7 +223,16 @@ class _AnalysispageState extends State<Analysispage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Camera(
+                            email: email,
+                          ),
+                        ),
+                      );
+                    },
                     child: const Icon(Icons.replay_rounded),
                   ),
                 ],

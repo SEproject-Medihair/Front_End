@@ -14,7 +14,12 @@ class Recordpage extends StatefulWidget {
 
 class _RecordpageState extends State<Recordpage> {
   List<String> dates = []; // 날짜 목록을 저장할 리스트 추가
-
+  bool clickdate = false;
+  String clikedhairdensity = '';
+  String clikedhairthickness = '';
+  bool clickdate2 = false;
+  String clikedhairdensity2 = '';
+  String clikedhairthickness2 = '';
   // fetchDates 함수를 _fetchDates로 변경하고 initState에서 호출
   Future<void> _fetchDates() async {
     try {
@@ -57,6 +62,46 @@ class _RecordpageState extends State<Recordpage> {
       print(hairData['Hair_Thickness']);
       if (hairData['Hair_Density'] is int &&
           hairData['Hair_Thickness'] is int) {
+        setState(() {
+          clickdate = true;
+          clikedhairdensity = hairData['Hair_Density'].toString();
+          clikedhairthickness = hairData['Hair_Thickness'].toString();
+        });
+        return [hairData['Hair_Density'], hairData['Hair_Thickness']];
+      } else {
+        // int로 변환할 수 없는 경우, 기본값이나 에러 처리를 하거나 원하는 작업을 수행합니다.
+        return [0, 0]; // 예: 기본값으로 0을 반환
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('선택된 날짜에 대한 데이터를 불러오는 데 실패했습니다.'),
+        ),
+      );
+      throw Exception('데이터를 불러오는 데 실패했습니다.');
+    }
+  }
+
+  Future<List<int>> _fetchHairDetails2(
+      BuildContext context, String date) async {
+    final Uri url = Uri.parse('https://medihair.ngrok.io/api/Record_choice');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': widget.email, 'date': date}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final hairData = responseData['modifiedResult'];
+
+      if (hairData['Hair_Density'] is int &&
+          hairData['Hair_Thickness'] is int) {
+        setState(() {
+          clickdate2 = true;
+          clikedhairdensity2 = hairData['Hair_Density'].toString();
+          clikedhairthickness2 = hairData['Hair_Thickness'].toString();
+        });
         return [hairData['Hair_Density'], hairData['Hair_Thickness']];
       } else {
         // int로 변환할 수 없는 경우, 기본값이나 에러 처리를 하거나 원하는 작업을 수행합니다.
@@ -295,30 +340,60 @@ class _RecordpageState extends State<Recordpage> {
                       const SizedBox(
                         height: 15,
                       ),
-                      SingleChildScrollView(
-                        child: Container(
-                          height: 100,
-                          width: 130,
-                          color: Colors.yellow[100],
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: dates.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  dates[index],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                onTap: () {
-                                  _fetchHairDetails(context, dates[index]);
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SingleChildScrollView(
+                            child: Container(
+                              height: 100,
+                              width: 130,
+                              color: Colors.yellow[100],
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: dates.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(
+                                      dates[index],
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      _fetchHairDetails(context, dates[index]);
+                                    },
+                                  );
                                 },
-                              );
-                            },
+                              ),
+                            ),
                           ),
-                        ),
+                          SingleChildScrollView(
+                            child: Container(
+                              height: 100,
+                              width: 130,
+                              color: Colors.yellow[100],
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: dates.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(
+                                      dates[index],
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      _fetchHairDetails2(context, dates[index]);
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -368,59 +443,59 @@ class _RecordpageState extends State<Recordpage> {
                       const SizedBox(
                         height: 12,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "12",
-                            style: TextStyle(
+                            clickdate == true ? clikedhairdensity : "0",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 28,
                               color: Color(0xFF51370E),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_sharp,
                             size: 18,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
-                            '13',
-                            style: TextStyle(
+                            clickdate2 == true ? clikedhairdensity2 : "0",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 28,
                               color: Color(0xFF51370E),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
                           Text(
-                            "41",
-                            style: TextStyle(
+                            clickdate == true ? clikedhairthickness : "0",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 28,
                               color: Color(0xFF51370E),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_sharp,
                             size: 18,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
-                            "42",
-                            style: TextStyle(
+                            clickdate2 == true ? clikedhairthickness2 : "0",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 28,
                               color: Color(0xFF51370E),

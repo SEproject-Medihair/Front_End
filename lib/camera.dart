@@ -2,16 +2,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'analysisloding.dart';
 
 class Camera extends StatefulWidget {
-  const Camera({Key? key}) : super(key: key);
+  final String email;
+  const Camera({super.key, required this.email});
 
   @override
-  State<Camera> createState() => _CameraState();
+  State<Camera> createState() => _CameraState(email: email);
 }
 
 class _CameraState extends State<Camera> {
+  final String email;
   File? _image;
+  _CameraState({required this.email});
   final picker = ImagePicker();
 
   // 비동기 처리를 통해 카메라와 갤러리에서 이미지를 가져온다.
@@ -43,37 +47,57 @@ class _CameraState extends State<Camera> {
 
     return Scaffold(
         backgroundColor: const Color(0xfff4f3f9),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 25.0),
-            showImage(),
-            const SizedBox(
-              height: 50.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                // 카메라 촬영 버튼
-                FloatingActionButton(
-                  tooltip: 'pick Iamge',
-                  onPressed: () {
-                    getImage(ImageSource.camera);
-                  },
-                  child: const Icon(Icons.add_a_photo),
-                ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 25.0),
+              showImage(),
+              const SizedBox(
+                height: 50.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  // 카메라 촬영 버튼
+                  FloatingActionButton(
+                    heroTag: 'pick Image',
+                    tooltip: 'pick Image',
+                    onPressed: () {
+                      getImage(ImageSource.camera);
+                    },
+                    child: const Icon(Icons.add_a_photo),
+                  ),
 
-                // 갤러리에서 이미지를 가져오는 버튼
-                FloatingActionButton(
-                  tooltip: 'pick Iamge',
-                  onPressed: () {
-                    getImage(ImageSource.gallery);
-                  },
-                  child: const Icon(Icons.wallpaper),
-                ),
-              ],
-            )
-          ],
+                  // 갤러리에서 이미지를 가져오는 버튼
+                  FloatingActionButton(
+                    heroTag: 'pick Album',
+                    tooltip: 'pick Album',
+                    onPressed: () {
+                      getImage(ImageSource.gallery);
+                    },
+                    child: const Icon(Icons.wallpaper),
+                  ),
+                  FloatingActionButton(
+                    heroTag: 'nextpage',
+                    tooltip: '분석',
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Analysisloding(
+                            email: email,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ],
+              )
+            ],
+          ),
         ));
   }
 }
