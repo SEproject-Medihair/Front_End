@@ -44,14 +44,14 @@ class _CameraState extends State<Camera> {
     // 화면 세로 고정
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: const Color(0xfff4f3f9),
+        backgroundColor: const Color(0xFFF9F2E7),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 25.0),
+              SizedBox(height: height * 0.2),
               showImage(),
               const SizedBox(
                 height: 50.0,
@@ -61,6 +61,7 @@ class _CameraState extends State<Camera> {
                 children: <Widget>[
                   // 카메라 촬영 버튼
                   FloatingActionButton(
+                    backgroundColor: const Color(0xFF51370E),
                     heroTag: 'pick Image',
                     tooltip: 'pick Image',
                     onPressed: () {
@@ -71,6 +72,7 @@ class _CameraState extends State<Camera> {
 
                   // 갤러리에서 이미지를 가져오는 버튼
                   FloatingActionButton(
+                    backgroundColor: const Color(0xFF51370E),
                     heroTag: 'pick Album',
                     tooltip: 'pick Album',
                     onPressed: () {
@@ -79,6 +81,7 @@ class _CameraState extends State<Camera> {
                     child: const Icon(Icons.wallpaper),
                   ),
                   FloatingActionButton(
+                    backgroundColor: const Color(0xFF51370E),
                     heroTag: 'nextpage',
                     tooltip: '분석',
                     onPressed: () {

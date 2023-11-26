@@ -13,6 +13,43 @@ class Recordpage extends StatefulWidget {
 }
 
 class _RecordpageState extends State<Recordpage> {
+  String name = '';
+  int hairDensity = 0;
+  int hairThickness = 0;
+  String hairLossType = '';
+  String scalpCondition = '';
+  int hairAge = 0;
+  String date = '';
+
+  Future<void> _sendEmail() async {
+    final Uri url = Uri.parse('https://medihair.ngrok.io/api/Today_condition');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': widget.email}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      setState(() {
+        name = responseData['name'];
+        var hairData = responseData['modifiedResult'];
+        hairDensity = hairData['Hair_Density'];
+        hairThickness = hairData['Hair_Thickness'];
+        hairLossType = hairData['Hair_Loss_Type'];
+        scalpCondition = hairData['Scalp_Condition'];
+        hairAge = hairData['Hair_Age'];
+        date = hairData['Date'];
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('오늘 모발 분석을 실시하지 않았습니다'),
+        ),
+      );
+    }
+  }
+
   List<String> dates = []; // 날짜 목록을 저장할 리스트 추가
   bool clickdate = false;
   String clikedhairdensity = '';
@@ -120,6 +157,7 @@ class _RecordpageState extends State<Recordpage> {
   @override
   void initState() {
     super.initState();
+    _sendEmail();
     _fetchDates(); // 페이지가 초기화될 때 날짜를 가져옵니다.
   }
 
@@ -269,9 +307,9 @@ class _RecordpageState extends State<Recordpage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "OO님의 탈모유형:",
-                            style: TextStyle(
+                          Text(
+                            "$name님의 탈모유형:",
+                            style: const TextStyle(
                                 color: Color(0xFF51370E),
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700),
@@ -283,9 +321,9 @@ class _RecordpageState extends State<Recordpage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color(0xFFF9E4C2)),
-                            child: const Text(
-                              ' 전면 탈모 ',
-                              style: TextStyle(
+                            child: Text(
+                              ' $hairLossType ',
+                              style: const TextStyle(
                                 fontSize: 27,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF51370E),
@@ -296,13 +334,15 @@ class _RecordpageState extends State<Recordpage> {
                       ),
                     ),
                     SizedBox(
-                      width: width * 0.25,
+                      width: width * 0.2,
                     ),
-                    Column(
-                      children: [
-                        Image.asset('assets/images/hairlossman.png',
-                            height: height * 0.23),
-                      ],
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Image.asset('assets/images/hairlossman.png',
+                              height: height * 0.23),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -609,14 +649,14 @@ class _RecordpageState extends State<Recordpage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Row(
+                      Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(
-                            "오늘: 2023.12.06",
-                            style: TextStyle(
+                            "오늘: $date",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
                               color: Color(0xFF51370E),
@@ -636,10 +676,10 @@ class _RecordpageState extends State<Recordpage> {
                               borderRadius: BorderRadius.circular(10),
                               color: const Color(0xFFF9E4C2),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "모발 밀도: ",
                                   style: TextStyle(
                                     color: Color(0xFF51370E),
@@ -648,8 +688,8 @@ class _RecordpageState extends State<Recordpage> {
                                   ),
                                 ),
                                 Text(
-                                  " 13(1cm²당)",
-                                  style: TextStyle(
+                                  " $hairDensity(1cm²당)",
+                                  style: const TextStyle(
                                     color: Color(0xFF51370E),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700,
@@ -668,10 +708,10 @@ class _RecordpageState extends State<Recordpage> {
                               borderRadius: BorderRadius.circular(10),
                               color: const Color(0xFFF9E4C2),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "모발 두께: ",
                                   style: TextStyle(
                                     color: Color(0xFF51370E),
@@ -680,8 +720,8 @@ class _RecordpageState extends State<Recordpage> {
                                   ),
                                 ),
                                 Text(
-                                  " 45(µm)",
-                                  style: TextStyle(
+                                  " $hairThickness(µm)",
+                                  style: const TextStyle(
                                     color: Color(0xFF51370E),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700,
@@ -700,10 +740,10 @@ class _RecordpageState extends State<Recordpage> {
                               borderRadius: BorderRadius.circular(10),
                               color: const Color(0xFFF9E4C2),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "탈모 상태: ",
                                   style: TextStyle(
                                     color: Color(0xFF51370E),
@@ -712,8 +752,8 @@ class _RecordpageState extends State<Recordpage> {
                                   ),
                                 ),
                                 Text(
-                                  " 심각",
-                                  style: TextStyle(
+                                  " $scalpCondition",
+                                  style: const TextStyle(
                                     color: Color(0xFF51370E),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700,
