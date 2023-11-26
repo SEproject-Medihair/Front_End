@@ -32,7 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.6.0
-  http: ^0.13.3
+  http: ^1.1.0
   crypto: ^3.0.1
   webview_flutter: ^3.0.0
   fl_chart: ^0.64.0
@@ -40,6 +40,7 @@ dependencies:
   url_launcher: ^6.2.1
   permission_handler: ^11.0.1
   intl: ^0.17.0
+  dart_openai: ^5.0.0
  
 
 
@@ -88,6 +89,7 @@ flutter:
     - assets/images/hairloss_site1.png
     - assets/images/hairloss_site2.png
     - assets/images/hairloss_site3.png
+    - assets/apikey.json
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

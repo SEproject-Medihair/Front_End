@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<String> loadApiKey() async {
+  final configString = await rootBundle.loadString('assets/apikey.json');
+  final configJson = json.decode(configString);
+  return configJson['api_key'] as String;
+}
 
 class Message {
   final String text;
@@ -7,117 +17,113 @@ class Message {
   Message(this.text, this.isSentByMe);
 }
 
-class Chatpage extends StatelessWidget {
-  final List<Message> messages = [
-    Message('Hello!', false),
-    Message('Hi there!', true),
-    Message('How are you?', true),
-    Message('I\'m good, thanks!', false),
-    Message('What about you?', false),
-    Message('Doing great!', true),
-  ];
+class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
 
-  Chatpage({super.key});
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  final TextEditingController _controller = TextEditingController();
+  List<Map<String, dynamic>> messages = [];
+
+  Future<void> sendMessage(String text) async {
+    if (text.isEmpty) return;
+    setState(() {
+      messages.add({'text': text, 'isUser': true});
+    });
+    final response = await getGPTResponse(text);
+    setState(() {
+      messages.add({'text': response, 'isUser': false});
+    });
+  }
+
+  Future<String> getGPTResponse(String text) async {
+    final apiKey = await loadApiKey(); // Replace with your API Key
+    const url = 'https://api.openai.com/v1/completions';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': 'Bearer $apiKey',
+        },
+        body: jsonEncode({
+          'prompt': text,
+          'max_tokens': 150,
+          'temperature': 0.5,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['choices'][0]['text'];
+      } else {
+        return 'Error: ${response.statusCode}';
+      }
+    } catch (e) {
+      return 'Error: ${e.toString()}';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9F2E7),
-        primaryColor: const Color(0xFFF9F2E7),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: (EdgeInsets.only(top: height * 0.05)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_back_rounded,
-                      color: Color(0xFF51370E), size: 32),
-                ),
-                SizedBox(
-                  width: width * 0.30,
-                ),
-                const Text(
-                  '챗봇',
-                  style: TextStyle(
-                    color: Color(0xFF51370E),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                )
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  final message = messages[index];
-                  return _buildMessageTile(message);
-                },
-              ),
-            ),
-            _buildMessageInputField(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMessageTile(Message message) {
-    return Align(
-      alignment:
-          message.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: message.isSentByMe
-              ? Colors.blue
-              : const Color.fromARGB(255, 201, 201, 201),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          message.text,
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMessageInputField() {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Row(
+    return Scaffold(
+      appBar: AppBar(title: const Text('Flutter Chatbot')),
+      body: Column(
         children: [
-          const Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: '입력하세요...',
-                border: OutlineInputBorder(),
-              ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                final message = messages[index];
+                return Align(
+                  alignment: message['isUser']
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: message['isUser'] ? Colors.blue : Colors.grey[300],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      message['text'],
+                      style: TextStyle(
+                        color: message['isUser'] ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () {
-              // Handle sending message
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      labelText: 'Enter your message',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () {
+                    sendMessage(_controller.text);
+                    _controller.clear();
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

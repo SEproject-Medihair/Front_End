@@ -295,7 +295,8 @@ class _MainpageState extends State<Mainpage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Chatpage()),
+                          MaterialPageRoute(
+                              builder: (context) => const ChatPage()),
                         );
                       },
                       child: SizedBox(
