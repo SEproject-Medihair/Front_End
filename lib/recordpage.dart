@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hairapp/graph.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Recordpage extends StatefulWidget {
   final String email; // 이메일을 받아오도록 추가
@@ -20,6 +21,33 @@ class _RecordpageState extends State<Recordpage> {
   String scalpCondition = '';
   int hairAge = 0;
   String date = '';
+  String? selectedFirstDate;
+  String? selectedSecondDate;
+
+  Future<void> _selectDate(BuildContext context, String buttonTag) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      selectableDayPredicate: (DateTime day) {
+        return dates.contains(DateFormat('yyyy-MM-dd').format(day));
+      },
+    );
+
+    if (picked != null) {
+      final selectedDate = DateFormat('yyyy-MM-dd').format(picked);
+      setState(() {
+        if (buttonTag == 'first') {
+          selectedFirstDate = selectedDate;
+          _fetchHairDetails(context, selectedDate);
+        } else {
+          selectedSecondDate = selectedDate;
+          _fetchHairDetails2(context, selectedDate);
+        }
+      });
+    }
+  }
 
   Future<void> _sendEmail() async {
     final Uri url = Uri.parse('https://medihair.ngrok.io/api/Today_condition');
@@ -380,60 +408,9 @@ class _RecordpageState extends State<Recordpage> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SingleChildScrollView(
-                            child: Container(
-                              height: 100,
-                              width: 130,
-                              color: Colors.yellow[100],
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: dates.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      dates[index],
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      _fetchHairDetails(context, dates[index]);
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            child: Container(
-                              height: 100,
-                              width: 130,
-                              color: Colors.yellow[100],
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: dates.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      dates[index],
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      _fetchHairDetails2(context, dates[index]);
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                        children: [],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -445,12 +422,13 @@ class _RecordpageState extends State<Recordpage> {
                                 bottom: BorderSide(width: 2),
                               ),
                             ),
-                            child: const Text(
-                              "2022.09.17",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(149, 173, 180, 187),
                               ),
+                              onPressed: () => _selectDate(context, 'first'),
+                              child: Text(selectedFirstDate ?? '첫번째 날짜 선택'),
                             ),
                           ),
                           const SizedBox(
@@ -470,12 +448,13 @@ class _RecordpageState extends State<Recordpage> {
                                 bottom: BorderSide(width: 2),
                               ),
                             ),
-                            child: const Text(
-                              "2023.12.06",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(149, 173, 180, 187),
                               ),
+                              onPressed: () => _selectDate(context, 'second'),
+                              child: Text(selectedSecondDate ?? '두번째 날짜 선택'),
                             ),
                           ),
                         ],
