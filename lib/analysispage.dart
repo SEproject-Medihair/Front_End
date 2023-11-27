@@ -155,7 +155,6 @@ class _AnalysispageState extends State<Analysispage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 15,
-                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w900,
                           height: 0,
                           letterSpacing: -0.30,
@@ -171,7 +170,6 @@ class _AnalysispageState extends State<Analysispage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 80,
-                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w900,
                           height: 0,
                           letterSpacing: -0.30,

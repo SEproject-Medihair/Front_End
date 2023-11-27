@@ -54,7 +54,7 @@ class _MainpageState extends State<Mainpage> {
                   "Welcome to 쑥쑥",
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(

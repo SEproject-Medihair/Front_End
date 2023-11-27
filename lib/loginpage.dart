@@ -170,7 +170,9 @@ class _LogInState extends State<LogIn> {
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.black87,
                               ),
-                              child: const Text('회원가입'),
+                              child: const Text(
+                                '회원가입',
+                              ),
                             ),
                           ],
                         ),

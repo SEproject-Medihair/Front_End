@@ -291,18 +291,20 @@ class _AnalysisresultState extends State<Analysisresult> {
                     const SizedBox(
                       width: 30,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 140,
-                          height: 170,
-                          child: Image.asset(
-                            'assets/images/product.png',
-                            fit: BoxFit.contain,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 140,
+                            height: 170,
+                            child: Image.asset(
+                              'assets/images/product.png',
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
