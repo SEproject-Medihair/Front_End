@@ -5,6 +5,7 @@ import 'analysispage.dart';
 import 'chatpage.dart';
 import 'noticepage.dart';
 import 'profile.dart';
+import 'recommendproduct.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Mainpage extends StatefulWidget {
@@ -250,7 +251,14 @@ class _MainpageState extends State<Mainpage> {
                     top: 190,
                     child: InkWell(
                       //--- 추천제품
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const RecommendedProductsPage()),
+                        );
+                      },
                       child: SizedBox(
                         width: 150,
                         height: 170,

@@ -59,6 +59,7 @@ class _RecordpageState extends State<Recordpage> {
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
+      print(responseData);
       setState(() {
         name = responseData['name'];
         var hairData = responseData['modifiedResult'];

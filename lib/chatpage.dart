@@ -51,6 +51,7 @@ class _ChatPageState extends State<ChatPage> {
           'Authorization': 'Bearer $apiKey',
         },
         body: jsonEncode({
+          "model": "gpt-3.5-turbo",
           'prompt': text,
           'max_tokens': 150,
           'temperature': 0.5,
