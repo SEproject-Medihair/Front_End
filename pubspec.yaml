@@ -89,6 +89,7 @@ flutter:
     - assets/images/hairloss_site1.png
     - assets/images/hairloss_site2.png
     - assets/images/hairloss_site3.png
+    - assets/images/newman.png
     - assets/apikey.json
     
 

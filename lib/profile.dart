@@ -102,7 +102,7 @@ class _ProfilepageState extends State<Profilepage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
@@ -113,7 +113,7 @@ class _ProfilepageState extends State<Profilepage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
@@ -124,7 +124,7 @@ class _ProfilepageState extends State<Profilepage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
@@ -135,7 +135,7 @@ class _ProfilepageState extends State<Profilepage> {
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       )
                     ],
@@ -145,11 +145,13 @@ class _ProfilepageState extends State<Profilepage> {
                   ),
                   Column(
                     children: [
-                      Image.asset(
-                        'assets/images/myphoto.png',
-                        fit: BoxFit.contain,
-                        width: width * 0.3,
-                        height: height * 0.17,
+                      ClipOval(
+                        child: Image.asset(
+                          'assets/images/myphoto.png',
+                          fit: BoxFit.cover,
+                          width: width * 0.3,
+                          height: height * 0.17,
+                        ),
                       ),
                     ],
                   )

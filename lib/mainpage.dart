@@ -51,14 +51,14 @@ class _MainpageState extends State<Mainpage> {
                   width: 30,
                 ),
                 const Text(
-                  "Welcome to 쑥쑥",
+                  "Welcome to SookSook",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(
-                  width: 130,
+                  width: 80,
                 ),
                 Container(
                   width: 60,
@@ -114,9 +114,20 @@ class _MainpageState extends State<Mainpage> {
                                 width: 150,
                                 height: 150,
                                 decoration: ShapeDecoration(
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Colors.grey
+                                          .withOpacity(0.5), // 그림자 색상 및 투명도
+                                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                                      blurRadius: 5, // 그림자의 흐림 정도
+                                      offset: const Offset(
+                                          1, 5), // 그림자의 위치 조정 (수평, 수직)
+                                    ),
+                                  ],
                                   color: const Color(0xFFFFFDF9),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
+                                    side: BorderSide.none,
                                   ),
                                 ),
                               ),
@@ -179,6 +190,16 @@ class _MainpageState extends State<Mainpage> {
                                 width: 150,
                                 height: 150,
                                 decoration: ShapeDecoration(
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Colors.grey
+                                          .withOpacity(0.5), // 그림자 색상 및 투명도
+                                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                                      blurRadius: 5, // 그림자의 흐림 정도
+                                      offset: const Offset(
+                                          1, 5), // 그림자의 위치 조정 (수평, 수직)
+                                    ),
+                                  ],
                                   color: const Color(0xFFFFFDF9),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -242,6 +263,16 @@ class _MainpageState extends State<Mainpage> {
                                 width: 150,
                                 height: 150,
                                 decoration: ShapeDecoration(
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Colors.grey
+                                          .withOpacity(0.5), // 그림자 색상 및 투명도
+                                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                                      blurRadius: 5, // 그림자의 흐림 정도
+                                      offset: const Offset(
+                                          1, 5), // 그림자의 위치 조정 (수평, 수직)
+                                    ),
+                                  ],
                                   color: const Color(0xFFFFFDF9),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
@@ -311,6 +342,16 @@ class _MainpageState extends State<Mainpage> {
                                 width: 150,
                                 height: 150,
                                 decoration: ShapeDecoration(
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Colors.grey
+                                          .withOpacity(0.5), // 그림자 색상 및 투명도
+                                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                                      blurRadius: 5, // 그림자의 흐림 정도
+                                      offset: const Offset(
+                                          1, 5), // 그림자의 위치 조정 (수평, 수직)
+                                    ),
+                                  ],
                                   color: const Color(0xFFFFFDF9),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),

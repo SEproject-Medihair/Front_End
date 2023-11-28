@@ -107,149 +107,173 @@ class _AnalysisresultState extends State<Analysisresult> {
               SizedBox(
                 height: height * 0.04,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "$name님의",
-                        style: const TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      const Text(
-                        "모발 분석 결과:",
-                        style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: width * 0.36,
-                  ),
-                  SizedBox(
-                    width: width * 0.18,
-                    child: Image.asset(
-                      'assets/images/hairlossman.png',
-                      fit: BoxFit.contain,
+              Container(
+                decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 5, // 그림자의 흐림 정도
+                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
                     ),
+                  ],
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        "탈모 유형: ",
-                        style: TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                ),
+                margin: const EdgeInsets.all(10),
+                width: width,
+                height: height * 0.34,
+                padding: const EdgeInsets.only(top: 28),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 25,
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.04,
-                      ),
-                      const Text(
-                        "모발 밀도: ",
-                        style: TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "$name님의 모발 분석 결과",
+                              style: const TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.04,
-                      ),
-                      const Text(
-                        "모발 두께: ",
-                        style: TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 25,
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.04,
-                      ),
-                      const Text(
-                        "탈모 상태: ",
-                        style: TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                        Column(
+                          children: [
+                            const Text(
+                              "탈모 유형: ",
+                              style: TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.04,
+                            ),
+                            const Text(
+                              "모발 밀도: ",
+                              style: TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.04,
+                            ),
+                            const Text(
+                              "모발 두께: ",
+                              style: TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.04,
+                            ),
+                            const Text(
+                              "탈모 상태: ",
+                              style: TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        " $hairLossType",
-                        style: const TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              " $hairLossType",
+                              style: const TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.033,
+                            ),
+                            Text(
+                              " $hairDensity(1cm²당)",
+                              style: const TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.033,
+                            ),
+                            Text(
+                              " $hairThickness(µm)",
+                              style: const TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * 0.033,
+                            ),
+                            Text(
+                              " $scalpCondition",
+                              style: const TextStyle(
+                                color: Color(0xFF51370E),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.033,
-                      ),
-                      Text(
-                        " $hairDensity(1cm²당)",
-                        style: const TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.033,
-                      ),
-                      Text(
-                        " $hairThickness(µm)",
-                        style: const TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.033,
-                      ),
-                      Text(
-                        " $scalpCondition",
-                        style: const TextStyle(
-                          color: Color(0xFF51370E),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
-                height: height * 0.04,
+                height: height * 0.01,
               ),
               Container(
+                decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 5, // 그림자의 흐림 정도
+                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
+                    ),
+                  ],
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                margin: const EdgeInsets.all(10),
                 width: width,
                 height: height * 0.3,
                 padding: const EdgeInsets.all(20),
-                color: Colors.white,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -257,7 +281,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "추천케어:",
+                          "AI 추천 케어:",
                           style: TextStyle(
                             color: Color(0xFF51370E),
                             fontSize: 17,
@@ -310,7 +334,71 @@ class _AnalysisresultState extends State<Analysisresult> {
                 ),
               ),
               SizedBox(
-                height: height * 0.03,
+                height: height * 0.01,
+              ),
+              Container(
+                decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 5, // 그림자의 흐림 정도
+                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
+                    ),
+                  ],
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                margin: const EdgeInsets.all(10),
+                width: width,
+                height: height * 0.35,
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "AI 추천 솔루션:",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: width * 0.8,
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 7,
+                                    text: const TextSpan(
+                                      text:
+                                          '세계문자 가운데 한글,즉 훈민정음은 흔히들 신비로운 문자라 부르곤 합니다. 그것은 세계 문자 가운데 유일하게 한글만이 그것을 만든 사람과 반포일을 알며, 글자를 만든 원리까지 알기 때문입니다. 세계에 이런 문자는 없습니다. 그래서 한글은, 정확히 말해 [훈민정음 해례본](국보 70호)은 진즉에 유네스코 세계기록유산으로 등재되었습니다. ‘한글’이라는 이름은 1910년대 초에 주시경 선생을 비롯한 한글학자들이 쓰기 시작한 것입니다. 여기서 ‘한’이란 크다는 것을 뜻하니, 한글은 ‘큰 글’을 말한다고 하겠습니다.[네이버 지식백과] 한글 - 세상에서 가장 신비한 문자 (위대한 문화유산, 최준식)',
+                                      style: TextStyle(
+                                        height: 1.4,
+                                        color: Color(0xFF51370E),
+                                        fontFamily: 'NanumDungGeunInYeon',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

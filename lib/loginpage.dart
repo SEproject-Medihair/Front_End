@@ -60,9 +60,11 @@ class _LogInState extends State<LogIn> {
 
     return Container(
       decoration: const BoxDecoration(
+        color: Color(0xFFF9F2E7),
         image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/backimage.png'),
+          alignment: Alignment.bottomCenter,
+          fit: BoxFit.contain,
+          image: AssetImage('assets/images/newman.png'),
         ),
       ),
       child: Scaffold(
@@ -176,66 +178,17 @@ class _LogInState extends State<LogIn> {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                  'assets/images/Naverimage.png',
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                  'assets/images/Kakaoimage.png',
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                  'assets/images/Googleimage.png',
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                         Padding(
                           padding: EdgeInsets.all(width * 0.15),
                         ),
-                        const Text(
-                          '-쑥쑥-',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromARGB(175, 0, 0, 0),
-                          ),
+                        const SizedBox(
+                          height: 80,
                         ),
                         const Text(
-                          '나만의 모발비서',
+                          '-SookSook-',
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
                             color: Color.fromARGB(175, 0, 0, 0),
                           ),
                         ),
