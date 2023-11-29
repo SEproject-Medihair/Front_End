@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'settingpage.dart';
 import 'mainpage.dart';
+import 'package:intl/intl.dart';
+
 //import 'profile.dart';
+class AlarmInfo {
+  DateTime dateTime;
+  bool isActive;
+
+  AlarmInfo({required this.dateTime, this.isActive = false});
+}
 
 class Noticepage extends StatefulWidget {
   const Noticepage({super.key});
@@ -11,8 +19,82 @@ class Noticepage extends StatefulWidget {
 }
 
 class _NoticepageState extends State<Noticepage> {
+  List<AlarmInfo> alarms = [];
   String email = '';
-  bool _isSwitched = false;
+  final bool _isSwitched = false;
+  void _addNewAlarm() async {
+    // 날짜 선택기를 표시합니다.
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (pickedDate != null) {
+      // 시간 선택기를 표시합니다.
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+      if (pickedTime != null) {
+        // 선택된 날짜와 시간으로 DateTime을 설정합니다.
+        final DateTime finalDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+        // 새 알람을 리스트에 추가합니다.
+        setState(() {
+          alarms.add(AlarmInfo(dateTime: finalDateTime));
+        });
+      }
+    }
+  }
+
+  void _deleteAlarm(int index) {
+    setState(() {
+      alarms.removeAt(index);
+    });
+  }
+
+  Widget _buildAlarmItem(AlarmInfo alarm, int index) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(DateFormat('EEEE').format(alarm.dateTime),
+                  style: const TextStyle(fontSize: 20)),
+              Text(DateFormat('HH:mm').format(alarm.dateTime),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          Switch(
+            value: alarm.isActive,
+            onChanged: (value) {
+              setState(() {
+                alarm.isActive = value;
+              });
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => _deleteAlarm(index),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,113 +104,17 @@ class _NoticepageState extends State<Noticepage> {
       backgroundColor: const Color(0xFFF9F2E7),
       body: Column(
         children: [
-          SizedBox(
-              height: height * 0.17,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: width * 0.45,
-                    top: height * 0.1,
-                    child: const Text(
-                      '알림',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF51370E),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-          SizedBox(
-            width: width,
-            height: height * 0.737,
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: Container(
-                    width: width,
-                    height: height * 0.1,
-                    color: const Color(0xFFFFFDF9),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: width * 0.15,
-                          top: height * 0.036,
-                          child: Text(
-                            _isSwitched ? '화요일' : '화요일',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: _isSwitched
-                                  ? const Color(0xFF000000)
-                                  : const Color(0xFF9E9E9E),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: width * 0.35,
-                          top: height * 0.028,
-                          child: Text(
-                            _isSwitched ? '21:00' : '21:00',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: _isSwitched
-                                  ? const Color(0xFF000000)
-                                  : const Color(0xFF9E9E9E),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: width * 0.7,
-                          top: height * 0.03,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isSwitched = !_isSwitched;
-                              });
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              width: 60.0,
-                              height: 30.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: _isSwitched ? Colors.green : Colors.grey,
-                              ),
-                              child: Stack(children: [
-                                AnimatedPositioned(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                  top: 0.0,
-                                  left: _isSwitched ? 30.0 : 0.0,
-                                  right: _isSwitched ? 0.0 : 30.0,
-                                  child: Container(
-                                    width: 30.0,
-                                    height: 30.0,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: width,
-                  height: height * 0.02,
-                ),
-              ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: alarms.length,
+              itemBuilder: (context, index) {
+                return _buildAlarmItem(alarms[index], index);
+              },
             ),
+          ),
+          FloatingActionButton(
+            onPressed: _addNewAlarm,
+            child: const Icon(Icons.add),
           ),
           Container(
             height: height * 0.09,

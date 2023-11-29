@@ -78,6 +78,7 @@ flutter:
     - assets/images/Naverimage.png
     - assets/images/boldman.png
     - assets/images/lodingman.gif
+    - assets/images/sooksook.gif
     - assets/images/product.png
     - assets/images/hairlossman.png
     - assets/images/Analyzing.gif
@@ -91,6 +92,8 @@ flutter:
     - assets/images/hairloss_site3.png
     - assets/images/newman.png
     - assets/apikey.json
+    - assets/images/sampoo/
+    
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

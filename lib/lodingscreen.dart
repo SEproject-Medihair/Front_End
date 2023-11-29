@@ -46,8 +46,9 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         Positioned(
           top: height * 0.2,
+          right: 1,
           child: Image.asset(
-            'assets/images/lodingman.gif',
+            'assets/images/sooksook.gif',
             fit: BoxFit.contain,
           ),
         ),
