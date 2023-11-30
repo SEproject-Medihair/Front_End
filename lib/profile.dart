@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'surveypage.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
@@ -159,7 +158,7 @@ class _ProfilepageState extends State<Profilepage> {
                 ],
               ),
               const SizedBox(
-                height: 15,
+                height: 72,
               ),
               Container(
                 width: width,
@@ -201,7 +200,7 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
               ),
               const SizedBox(
-                height: 105,
+                height: 195,
               ),
               Container(
                 height: height * 0.09,
