@@ -21,7 +21,7 @@ class Noticepage extends StatefulWidget {
 class _NoticepageState extends State<Noticepage> {
   List<AlarmInfo> alarms = [];
   String email = '';
-  final bool _isSwitched = false;
+
   void _addNewAlarm() async {
     // 날짜 선택기를 표시합니다.
     final DateTime? pickedDate = await showDatePicker(

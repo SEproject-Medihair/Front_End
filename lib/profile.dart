@@ -9,6 +9,7 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  String email = '';
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -156,36 +157,6 @@ class _ProfilepageState extends State<Profilepage> {
                     ],
                   )
                 ],
-              ),
-              SizedBox(
-                height: height * 0.085,
-              ),
-              Container(
-                width: width,
-                height: height * 0.1,
-                padding: const EdgeInsets.fromLTRB(13, 20, 0, 15),
-                color: Colors.white,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Surveypage()),
-                        );
-                      },
-                      child: const Text(
-                        "설문조사",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    )
-                  ],
-                ),
               ),
               const SizedBox(
                 height: 15,

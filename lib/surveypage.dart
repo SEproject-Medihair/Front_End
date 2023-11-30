@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'analysispage.dart';
 
 class Surveypage extends StatefulWidget {
-  const Surveypage({super.key});
+  final String email;
+  const Surveypage({super.key, required this.email});
 
   @override
-  State<Surveypage> createState() => _SurveypageState();
+  State<Surveypage> createState() => _SurveypageState(email: email);
 }
 
 class _SurveypageState extends State<Surveypage> {
+  final String email;
+  _SurveypageState({required this.email});
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -235,15 +239,19 @@ class _SurveypageState extends State<Surveypage> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        side: const BorderSide(color: Color(0xFF51370E)),
-                        foregroundColor: const Color(0xFF51370E),
-                        minimumSize: const Size(110, 50),
-                        backgroundColor: const Color(0xFFFAE6C8),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                      side: const BorderSide(color: Color(0xFF51370E)),
+                      foregroundColor: const Color(0xFF51370E),
+                      minimumSize: const Size(110, 50),
+                      backgroundColor: const Color(0xFFFAE6C8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     onPressed: () {
-                      Navigator.pop(
+                      Navigator.push(
                         context,
+                        MaterialPageRoute(
+                            builder: (context) => Analysispage(email: email)),
                       );
                     },
                     child: const Text(

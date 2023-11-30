@@ -830,6 +830,17 @@ class _RecordpageState extends State<Recordpage> {
                           const SizedBox(
                             height: 30,
                           ),
+                          const Text(
+                            "LG - MEDI HAIR",
+                            style: TextStyle(
+                              color: Color(0xFF51370E),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Container(
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(

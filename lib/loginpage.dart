@@ -5,6 +5,7 @@ import 'dart:async';
 import 'legistrationscreen.dart';
 import 'findpassword.dart';
 import 'analysispage.dart';
+import 'surveypage.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -42,6 +43,21 @@ class _LogInState extends State<LogIn> {
         context,
         MaterialPageRoute(
           builder: (context) => Analysispage(email: userEmail),
+        ),
+      );
+    } else if (response.statusCode == 300) {
+      final responseData = json.decode(response.body);
+      final userEmail = responseData['email'];
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          content: Text('로그인에 성공했습니다,'),
+        ),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Surveypage(email: userEmail),
         ),
       );
     } else {

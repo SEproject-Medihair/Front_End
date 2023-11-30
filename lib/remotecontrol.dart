@@ -152,7 +152,9 @@ class _RemotecontrolState extends State<Remotecontrol> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Surveypage()),
+                            builder: (context) => Surveypage(
+                                  email: email,
+                                )),
                       );
                     },
                     child: const Icon(

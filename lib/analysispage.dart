@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hairapp/camera.dart';
 import 'analysisloding.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Analysispage extends StatefulWidget {
   final String email;
@@ -12,7 +14,58 @@ class Analysispage extends StatefulWidget {
 
 class _AnalysispageState extends State<Analysispage> {
   final String email;
+  String name = '';
+  int hairDensity = 0;
+  int hairThickness = 0;
+  String hairLossType = '';
+  String scalpCondition = '';
+  int hairAge = 0;
+  String date = '';
+  int score = 0;
   _AnalysispageState({required this.email});
+
+  @override
+  void initState() {
+    super.initState();
+    _sendEmail();
+  }
+
+  int calculateTotalScore(int a, int b) {
+    double scoreA = (a / 120) * 50;
+    double scoreB = (b / 40) * 50;
+    return (scoreA + scoreB).toInt();
+  }
+
+  Future<void> _sendEmail() async {
+    final Uri url = Uri.parse('https://medihair.ngrok.io/api/Today_condition');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': widget.email}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      setState(() {
+        name = responseData['name'];
+        var hairData = responseData['modifiedResult'];
+        hairDensity = hairData['Hair_Density'];
+        hairThickness = hairData['Hair_Thickness'];
+        hairLossType = hairData['Hair_Loss_Type'];
+        scalpCondition = hairData['Scalp_Condition'];
+        hairAge = hairData['Hair_Age'];
+        date = hairData['Date'];
+        score = calculateTotalScore(hairThickness, hairDensity);
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('오늘 모발 분석을 실시하지 않았습니다'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -161,13 +214,13 @@ class _AnalysispageState extends State<Analysispage> {
                         ),
                       ),
                     ),
-                    const Positioned(
+                    Positioned(
                       left: 89,
                       top: 106,
                       child: Text(
-                        '87',
+                        '$score',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 80,
                           fontWeight: FontWeight.w900,
@@ -197,7 +250,11 @@ class _AnalysispageState extends State<Analysispage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Analysisloding(email: email),
+                          builder: (context) => Analysisloding(
+                            email: email,
+                            one: 1,
+                            two: 1,
+                          ),
                         ),
                       );
                     },
@@ -239,7 +296,7 @@ class _AnalysispageState extends State<Analysispage> {
                 height: 12,
               ),
               const Text(
-                "지난번 분석: 10.06",
+                "지난번 분석: 12.06",
                 style: TextStyle(
                   color: Color.fromARGB(255, 118, 115, 104),
                   fontSize: 12,
@@ -249,34 +306,34 @@ class _AnalysispageState extends State<Analysispage> {
               const SizedBox(
                 height: 12,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "12",
-                    style: TextStyle(
+                    "$hairDensity",
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                       color: Color(0xFF51370E),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 40,
                   ),
                   Text(
-                    "43",
-                    style: TextStyle(
+                    "$hairThickness",
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                       color: Color(0xFF51370E),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 40,
                   ),
                   Text(
-                    "심각",
-                    style: TextStyle(
+                    scalpCondition,
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                       color: Color(0xFF51370E),
@@ -296,7 +353,7 @@ class _AnalysispageState extends State<Analysispage> {
                     ),
                   ),
                   SizedBox(
-                    width: 14,
+                    width: 20,
                   ),
                   Text(
                     "두께(µm)",
