@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'loginpage.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
@@ -98,7 +99,7 @@ class _ProfilepageState extends State<Profilepage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        " 안효성",
+                        " 박진우",
                         style: TextStyle(
                           color: Color(0xFF51370E),
                           fontSize: 20,
@@ -147,7 +148,7 @@ class _ProfilepageState extends State<Profilepage> {
                     children: [
                       ClipOval(
                         child: Image.asset(
-                          'assets/images/myphoto.png',
+                          'assets/images/jinwoo.jpg',
                           fit: BoxFit.cover,
                           width: width * 0.3,
                           height: height * 0.17,
@@ -186,15 +187,24 @@ class _ProfilepageState extends State<Profilepage> {
                 height: height * 0.1,
                 padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
                 color: Colors.white,
-                child: const Row(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "로그아웃",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LogIn()),
+                        );
+                      },
+                      child: const Text(
+                        "로그아웃",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ],
                 ),

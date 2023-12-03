@@ -228,6 +228,34 @@ class _SurveypageState extends State<Surveypage> {
                         )
                       ],
                     ),
+                    SizedBox(
+                      height: height * 0.03,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          '-탈모유형을 말해주세요',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          width: width * 0.8, // 원하는 너비 설정
+                          child: const TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),

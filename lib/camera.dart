@@ -70,7 +70,7 @@ class _CameraState extends State<Camera> {
         height: MediaQuery.of(context).size.width,
         child: Center(
             child: _image == null
-                ? const Text('No image selected.')
+                ? const Text('모발 사진을 선택해주세요')
                 : Image.file(File(_image!.path))));
   }
 

@@ -29,7 +29,7 @@ class _SettingpageState extends State<Settingpage> {
                       left: 173,
                       top: 66,
                       child: Text(
-                        '세팅',
+                        '설정',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF51370E),

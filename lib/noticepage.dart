@@ -29,6 +29,10 @@ class _NoticepageState extends State<Noticepage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      selectableDayPredicate: (DateTime day) {
+        // 오늘 날짜 또는 이후 날짜만 선택 가능하도록 설정
+        return day.isAfter(DateTime.now().subtract(const Duration(days: 1)));
+      },
     );
     if (pickedDate != null) {
       // 시간 선택기를 표시합니다.
@@ -61,6 +65,7 @@ class _NoticepageState extends State<Noticepage> {
 
   Widget _buildAlarmItem(AlarmInfo alarm, int index) {
     return Container(
+      margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -72,7 +77,7 @@ class _NoticepageState extends State<Noticepage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(DateFormat('EEEE').format(alarm.dateTime),
+              Text(DateFormat('EEEE(M/d)', 'ko_KR').format(alarm.dateTime),
                   style: const TextStyle(fontSize: 20)),
               Text(DateFormat('HH:mm').format(alarm.dateTime),
                   style: const TextStyle(
@@ -104,17 +109,29 @@ class _NoticepageState extends State<Noticepage> {
       backgroundColor: const Color(0xFFF9F2E7),
       body: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: ListView.builder(
-              itemCount: alarms.length,
+              itemCount: alarms.length + 1,
               itemBuilder: (context, index) {
-                return _buildAlarmItem(alarms[index], index);
+                if (index == alarms.length) {
+                  // 마지막 인덱스에서 FloatingActionButton 반환
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(280, 10, 0, 0),
+                    child: FloatingActionButton(
+                      backgroundColor: const Color(0xFF51370E),
+                      onPressed: _addNewAlarm,
+                      child: const Icon(Icons.add),
+                    ),
+                  );
+                } else {
+                  // 기존 항목 반환
+                  return _buildAlarmItem(alarms[index], index);
+                }
               },
             ),
-          ),
-          FloatingActionButton(
-            onPressed: _addNewAlarm,
-            child: const Icon(Icons.add),
           ),
           Container(
             height: height * 0.09,

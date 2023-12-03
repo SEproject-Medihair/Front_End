@@ -57,6 +57,41 @@ class _AnalysisresultState extends State<Analysisresult> {
     }
   }
 
+  Future<String> textchoose() async {
+    String solutiontext = '';
+    if (hairLossType == '탈모 아님') {
+      solutiontext = '진우님의 모발 분석 결과 탈모가 아니며 모발의 밀도와 굵기 모두 정상입니다.';
+    } else if (hairLossType == '경증 탈모') {
+      solutiontext =
+          '진우님의 모발 분석 결과 경증 탈모로 모발의 밀도가 낮으나 부분적으로 두께가 굵은 모발이 있는 상황입니다.';
+    } else if (hairLossType == '중경증 탈모') {
+      solutiontext = '진우님의 모발 분석 결과 중경증 탈모로 모발의 밀도가 낮고 두께가 낮은 상황입니다.';
+    } else if (hairLossType == '중증 탈모') {
+      solutiontext =
+          '진우님의 모발 분석 결과 중증 탈모로 모발의 밀도가 낮고 모발 두께도 전체적으로 매우 얇은 상황입니다. 두피 진단 시 빈 모공이 2개 이상 관찰됩니다.';
+    } else {
+      solutiontext = '정확한 진단을 위해 다시 한번 검사를 실시하여 주세요.';
+    }
+    return solutiontext;
+  }
+
+  Future<String> textchoose2() async {
+    String solutiontext2 = '';
+    if (scalpCondition == '안전') {
+      solutiontext2 = '두피상태는 안전으로 두피 표면의 색상이 균일하며 각질이나 불순물이 확인되지 않습니다.';
+    } else if (scalpCondition == '양호') {
+      solutiontext2 = '두피상태는 양호로 홍반이나 피지 과다가 없으나, 작고 가루 같은 각질이 관찰됩니다.';
+    } else if (scalpCondition == '위험') {
+      solutiontext2 = '두피상태는 위험으로 작고 가루같은 각질이 종종 보이며, 두피에 갈라진 표면이 보입니다.';
+    } else if (scalpCondition == '심각') {
+      solutiontext2 =
+          '두피상태는 심각으로 작고 가루같은 각질이 많이 보이며, 두피 모공 주위에 나이테 모양의 표면이 보입니다.';
+    } else {
+      solutiontext2 = '정확한 진단을 위해 다시 한번 검사를 실시하여 주세요.';
+    }
+    return solutiontext2;
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -158,7 +193,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                         Column(
                           children: [
                             const Text(
-                              "탈모 유형: ",
+                              "탈모 상태: ",
                               style: TextStyle(
                                 color: Color(0xFF51370E),
                                 fontSize: 15,
@@ -191,7 +226,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                               height: height * 0.04,
                             ),
                             const Text(
-                              "탈모 상태: ",
+                              "두피 상태: ",
                               style: TextStyle(
                                 color: Color(0xFF51370E),
                                 fontSize: 15,
@@ -364,49 +399,76 @@ class _AnalysisresultState extends State<Analysisresult> {
                 ),
                 margin: const EdgeInsets.all(10),
                 width: width,
-                height: height * 0.35,
+                height: height * 0.3,
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "AI 추천 솔루션:",
-                          style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "AI 추천 솔루션:",
+                            style: TextStyle(
+                              color: Color(0xFF51370E),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: width * 0.8,
-                          child: Row(
-                            children: [
-                              Flexible(
-                                child: RichText(
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 7,
-                                    text: const TextSpan(
-                                      text:
-                                          '세계문자 가운데 한글,즉 훈민정음은 흔히들 신비로운 문자라 부르곤 합니다. 그것은 세계 문자 가운데 유일하게 한글만이 그것을 만든 사람과 반포일을 알며, 글자를 만든 원리까지 알기 때문입니다. 세계에 이런 문자는 없습니다. 그래서 한글은, 정확히 말해 [훈민정음 해례본](국보 70호)은 진즉에 유네스코 세계기록유산으로 등재되었습니다. ‘한글’이라는 이름은 1910년대 초에 주시경 선생을 비롯한 한글학자들이 쓰기 시작한 것입니다. 여기서 ‘한’이란 크다는 것을 뜻하니, 한글은 ‘큰 글’을 말한다고 하겠습니다.[네이버 지식백과] 한글 - 세상에서 가장 신비한 문자 (위대한 문화유산, 최준식)',
-                                      style: TextStyle(
-                                        height: 1.4,
-                                        color: Color(0xFF51370E),
-                                        fontFamily: 'NanumDungGeunInYeon',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    )),
-                              ),
-                            ],
+                          const SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: width * 0.8,
+                            child: Column(
+                              children: [
+                                FutureBuilder<String>(
+                                  future:
+                                      textchoose(), // 여기에 Future<String> 함수를 넣습니다.
+                                  builder: (context, snapshot) {
+                                    // 연결 상태에 따라 다르게 처리
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator(); // 데이터를 기다리는 동안 로딩 표시
+                                    } else if (snapshot.hasError) {
+                                      return Text(
+                                          "Error: ${snapshot.error}"); // 에러 발생 시 표시
+                                    } else {
+                                      // 데이터가 성공적으로 반환되었을 때
+                                      return Text(
+                                        snapshot.data ?? "데이터 없음",
+                                        style: const TextStyle(fontSize: 17),
+                                      );
+                                    }
+                                  },
+                                ),
+                                FutureBuilder<String>(
+                                  future:
+                                      textchoose2(), // 여기에 Future<String> 함수를 넣습니다.
+                                  builder: (context, snapshot) {
+                                    // 연결 상태에 따라 다르게 처리
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator(); // 데이터를 기다리는 동안 로딩 표시
+                                    } else if (snapshot.hasError) {
+                                      return Text(
+                                          "Error: ${snapshot.error}"); // 에러 발생 시 표시
+                                    } else {
+                                      // 데이터가 성공적으로 반환되었을 때
+                                      return Text(
+                                        snapshot.data ?? "데이터 없음",
+                                        style: const TextStyle(fontSize: 17),
+                                      );
+                                    }
+                                  },
+                                ),
+                                const Text('')
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -432,7 +494,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                           (route) => false);
                     },
                     child: const Text(
-                      '메인으로',
+                      '메인 페이지',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),

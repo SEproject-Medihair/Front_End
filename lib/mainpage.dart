@@ -76,7 +76,7 @@ class _MainpageState extends State<Mainpage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
                     child: Image.asset(
-                      'assets/images/myphoto.png',
+                      'assets/images/jinwoo.jpg',
                       fit: BoxFit.contain,
                     ),
                   ),

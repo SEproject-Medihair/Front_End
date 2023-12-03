@@ -32,7 +32,7 @@ class _AnalysispageState extends State<Analysispage> {
 
   int calculateTotalScore(int a, int b) {
     double scoreA = (a / 120) * 50;
-    double scoreB = (b / 40) * 50;
+    double scoreB = (b / 130) * 50;
     return (scoreA + scoreB).toInt();
   }
 
@@ -128,7 +128,7 @@ class _AnalysispageState extends State<Analysispage> {
                     ),
                   ),
                   Text(
-                    'MEDI HAIR-HGN1',
+                    '없음',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -250,10 +250,8 @@ class _AnalysispageState extends State<Analysispage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Analysisloding(
+                          builder: (context) => Camera(
                             email: email,
-                            one: 1,
-                            two: 1,
                           ),
                         ),
                       );
@@ -282,8 +280,10 @@ class _AnalysispageState extends State<Analysispage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Camera(
+                          builder: (context) => Analysisloding(
                             email: email,
+                            one: 1,
+                            two: 1,
                           ),
                         ),
                       );
@@ -310,7 +310,7 @@ class _AnalysispageState extends State<Analysispage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "$hairDensity",
+                    "  $hairDensity",
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
@@ -367,7 +367,7 @@ class _AnalysispageState extends State<Analysispage> {
                     width: 40,
                   ),
                   Text(
-                    "탈모상태",
+                    " 탈모상태",
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w800,

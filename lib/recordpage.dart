@@ -30,6 +30,7 @@ class _RecordpageState extends State<Recordpage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      locale: const Locale('ko', 'KR'),
       selectableDayPredicate: (DateTime day) {
         return dates.contains(DateFormat('yyyy-MM-dd').format(day));
       },
@@ -319,73 +320,6 @@ class _RecordpageState extends State<Recordpage> {
               SizedBox(
                 height: height * 0.01,
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                width: width * 0.95,
-                decoration: ShapeDecoration(
-                  shadows: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
-                      spreadRadius: 2, // 그림자의 퍼짐 정도
-                      blurRadius: 5, // 그림자의 흐림 정도
-                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
-                    ),
-                  ],
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.02,
-                    ),
-                    SizedBox(
-                      height: height * 0.18,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "$name님의 탈모유형:",
-                            style: const TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(
-                            height: height * 0.04,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFF9E4C2)),
-                            child: Text(
-                              ' $hairLossType ',
-                              style: const TextStyle(
-                                fontSize: 27,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF51370E),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: width * 0.2,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Image.asset('assets/images/hairlossman.png',
-                              height: height * 0.23),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               SizedBox(
                 height: height * 0.01,
               ),
@@ -513,7 +447,7 @@ class _RecordpageState extends State<Recordpage> {
                             ),
                           ),
                           const SizedBox(
-                            width: 40,
+                            width: 70,
                           ),
                           Text(
                             clickdate == true ? clikedhairthickness : "0",
@@ -569,7 +503,7 @@ class _RecordpageState extends State<Recordpage> {
                             ),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 100,
                           ),
                           Text.rich(
                             TextSpan(
@@ -603,7 +537,7 @@ class _RecordpageState extends State<Recordpage> {
                 ),
               if (!istodayscreen)
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
               if (!istodayscreen)
                 Container(
@@ -645,7 +579,9 @@ class _RecordpageState extends State<Recordpage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    LineChartSample6(),
+                    Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Image.asset('assets/images/hairlossgraph.png')),
                   ]),
                 ),
               if (istodayscreen)
@@ -773,6 +709,38 @@ class _RecordpageState extends State<Recordpage> {
                                   ),
                                 ),
                                 Text(
+                                  " $hairLossType",
+                                  style: const TextStyle(
+                                    color: Color(0xFF51370E),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 50),
+                            padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFFF9E4C2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "두피 상태: ",
+                                  style: TextStyle(
+                                    color: Color(0xFF51370E),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
                                   " $scalpCondition",
                                   style: const TextStyle(
                                     color: Color(0xFF51370E),
@@ -890,71 +858,69 @@ class _RecordpageState extends State<Recordpage> {
                     ],
                   ),
                 ),
-              if (istodayscreen)
-                Container(
-                  decoration: ShapeDecoration(
-                    shadows: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
-                        spreadRadius: 2, // 그림자의 퍼짐 정도
-                        blurRadius: 5, // 그림자의 흐림 정도
-                        offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
-                      ),
-                    ],
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              Container(
+                decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 5, // 그림자의 흐림 정도
+                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
                     ),
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  width: width,
-                  height: height * 0.35,
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "AI 추천 솔루션:",
-                            style: TextStyle(
-                              color: Color(0xFF51370E),
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            width: width * 0.8,
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 7,
-                                      text: const TextSpan(
-                                        text:
-                                            '진우님의 모발 분석 결과 경증 탈모로 모발의 밀도가 낮으나 부분적으로 두께가 굵은 모발이 있는 상황입니다. 두피상태는 양호로 두피표면에 색상이 균일하며 각질이나 불순물이 확인되지 않습니다. 종합적으로 보았을 때 일주일에 3번 하루 30분동안 메디헤어 프론트모드를 사용하시는 것을 추천합니다.',
-                                        style: TextStyle(
-                                          height: 1.4,
-                                          color: Color(0xFF51370E),
-                                          fontFamily: 'NanumDungGeunInYeon',
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  ],
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+                margin: const EdgeInsets.all(10),
+                width: width,
+                height: height * 0.35,
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "AI 추천 솔루션:",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: width * 0.8,
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 7,
+                                    text: const TextSpan(
+                                      text:
+                                          '진우님의 모발 분석 결과 경증 탈모로 모발의 밀도가 낮으나 부분적으로 두께가 굵은 모발이 있는 상황입니다. 두피상태는 양호로 두피표면에 색상이 균일하며 각질이나 불순물이 확인되지 않습니다. 종합적으로 보았을 때 일주일에 3번 하루 30분동안 메디헤어 프론트모드를 사용하시는 것을 추천합니다.',
+                                      style: TextStyle(
+                                        height: 1.4,
+                                        color: Color(0xFF51370E),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
