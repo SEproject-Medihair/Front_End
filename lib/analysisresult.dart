@@ -232,7 +232,7 @@ class _AnalysisresultState extends State<Analysisresult> {
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                               ),
-                            )
+                            ),
                           ],
                         ),
                         Column(
@@ -279,102 +279,37 @@ class _AnalysisresultState extends State<Analysisresult> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
-                            )
+                            ),
+                          ],
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              height: 140,
+                            ),
+                            Text(
+                              "Analyzed by",
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              "SookSook AI(Efficient B0)",
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              "For 5.472 sec",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              Container(
-                decoration: ShapeDecoration(
-                  shadows: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
-                      spreadRadius: 2, // 그림자의 퍼짐 정도
-                      blurRadius: 5, // 그림자의 흐림 정도
-                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
-                    ),
-                  ],
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                margin: const EdgeInsets.all(10),
-                width: width,
-                height: height * 0.3,
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "AI 추천 케어:",
-                          style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "LG - MEDI HAIR",
-                          style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "프론트케어 모드 | 18분",
-                          style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 18,
-                        ),
-                        Text(
-                          "앞머리 뒷머리 집중 케어",
-                          style: TextStyle(
-                            color: Color(0xFF51370E),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 140,
-                            height: 170,
-                            child: Image.asset(
-                              'assets/images/product.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
@@ -467,11 +402,134 @@ class _AnalysisresultState extends State<Analysisresult> {
                               ],
                             ),
                           ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Generative AI",
+                                style: TextStyle(fontSize: 12),
+                              )
+                            ],
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "by GPT-4",
+                                style: TextStyle(fontSize: 12),
+                              )
+                            ],
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "For 3.024 sec",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w600),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
+              ),
+              Container(
+                decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5), // 그림자 색상 및 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 5, // 그림자의 흐림 정도
+                      offset: const Offset(1, 5), // 그림자의 위치 조정 (수평, 수직)
+                    ),
+                  ],
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                margin: const EdgeInsets.all(10),
+                width: width,
+                height: height * 0.3,
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "AI 추천 케어:",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "LG - MEDI HAIR",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "프론트케어 모드 | 18분",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 18,
+                        ),
+                        Text(
+                          "앞머리 뒷머리 집중 케어",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 140,
+                            height: 170,
+                            child: Image.asset(
+                              'assets/images/product.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

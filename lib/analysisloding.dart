@@ -26,7 +26,7 @@ class _AnalysislodingState extends State<Analysisloding> {
   void initState() {
     super.initState();
     // 4초 타이머 설정
-    Timer(const Duration(seconds: 4), () {
+    Timer(const Duration(seconds: 6), () {
       // 서버에 데이터 전송
       sendHairAnalysis();
     });
@@ -78,7 +78,7 @@ class _AnalysislodingState extends State<Analysisloding> {
         Positioned(
           top: height * 0.03,
           child: Image.asset(
-            'assets/images/Analyzing.gif',
+            'assets/images/analyzingaipage.gif',
             width: width * 0.98,
             height: height * 0.98,
             fit: BoxFit.contain,

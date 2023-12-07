@@ -13,13 +13,20 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
   List<Map<String, dynamic>> messages = []; // 메시지와 메시지 타입(사용자 또는 챗봇)을 저장
 
-  void addMessage(String message, String type) {
+  void addMessage(String message, String type, [DateTime? sentTime]) {
     setState(() {
-      messages.add({"type": type, "content": message});
+      var responseTime = '';
+      if (sentTime != null) {
+        final duration = DateTime.now().difference(sentTime);
+        responseTime = ' (응답 시간: ${duration.inSeconds}초)';
+      }
+      messages.add(
+          {"type": type, "content": message, "responseTime": responseTime});
     });
   }
 
   Future<void> sendMessageToGPT(String message) async {
+    final sentTime = DateTime.now();
     addMessage(message, "user"); // 메시지를 바로 추가
 
     final response = await http.post(
@@ -33,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
         'messages': [
           {
             "role": "system",
-            "content": "친절하고 자상한 고객 상담원, 대화끝에 항상 적절한 이모지를 붙인다"
+            "content": "친절하고 귀엽고 자상한 고객 상담원, 대화끝에 항상 적절한 이모지를 붙인다."
           },
           {
             "role": "assistant",
@@ -56,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
       var data = jsonDecode(utf8.decode(response.bodyBytes));
       String reply =
           data['choices'][0]['message']['content'].trim(); // 변경된 응답 구조에 맞게 접근
-      addMessage(reply, "bot"); // 챗봇의 응답을 추가
+      addMessage(reply, "bot", sentTime); // 챗봇의 응답을 추가
     } else {
       print('Request failed with status: ${response.statusCode}.');
       throw Exception('Failed to load data: ${response.body}');
@@ -68,7 +75,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '쑥쑥이에게 물어보세요!',
+          'AI 쑥쑥에게 물어보세요!',
           style: TextStyle(
               color: Color(0xFF51370E),
               fontSize: 20,
@@ -97,7 +104,19 @@ class _ChatPageState extends State<ChatPage> {
                             : const Color(0xFFFAE6C8),
                       ),
                       padding: const EdgeInsets.all(8),
-                      child: Text(messageData['content']),
+                      child: Column(
+                        crossAxisAlignment: messageData['type'] == 'user'
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          Text(messageData['content']),
+                          Text(
+                            messageData['responseTime'],
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.grey),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

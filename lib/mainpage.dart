@@ -19,15 +19,15 @@ class Mainpage extends StatefulWidget {
 
 class _MainpageState extends State<Mainpage> {
   final List<String> imagePaths = [
-    'assets/images/hairloss_site1.png',
-    'assets/images/hairloss_site2.png',
     'assets/images/hairloss_site3.png',
+    'assets/images/hairloss_site2.png',
+    'assets/images/hairloss_site1.png',
   ];
 
   final List<String> destinationUrls = [
-    'https://daedamo.com/new/',
-    'https://cafe.naver.com/gameguidel',
     'https://cafe.naver.com/imaban',
+    'https://cafe.naver.com/gameguidel',
+    'https://daedamo.com/new/',
   ];
 
   DateTime? currentBackPressTime;
