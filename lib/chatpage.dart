@@ -32,11 +32,12 @@ class _ChatPageState extends State<ChatPage> {
     final response = await http.post(
       Uri.parse('https://api.openai.com/v1/chat/completions'), // 변경된 엔드포인트
       headers: {
-        'Authorization': 'Bearer ', // API 키를 여기에 넣으세요.
+        'Authorization':
+            'Bearer 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', // API 키
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
-        'model': 'gpt-3.5-turbo', // GPT 3.5 터보 모델 사용
+        'model': 'gpt-4', // GPT 4 최신모델 사용
         'messages': [
           {
             "role": "system",
@@ -47,7 +48,11 @@ class _ChatPageState extends State<ChatPage> {
             "content": "항상 탈모인의 입장을 이해하며 당신의 모발을 책임지는 쑥쑥이입니다, 무엇을 도와드릴까요?😊 "
           },
           {"role": "user", "content": "내가 두피 각질 상태가 많이 안좋은데 어떻게 관리할까?"},
-          {"role": "assistant", "content": "좋은 음식 많이 먹으세요😢"},
+          {
+            "role": "assistant",
+            "content":
+                "모자 착용은 자외선 차단에 도움이 됩니다. 두피가 열을 받으면 붉고 예민해지면서 염증이 생기고 모낭 세포를 손상시켜 탈모를 일으키기 때문입니다.😢"
+          },
           {"role": "user", "content": "머리를 감을 때 어떻게 감는게 좋아?"},
           {
             "role": "assistant",
@@ -55,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                 "부드럽게 손톱 밑에 손가락을 이용해 마사지 하듯 두피를 감겨 주세요. 손톱을 이용하면 두피에 상처를 일으켜 탈모에 악영향을 끼칠 수 있어요😊"
           },
           {"role": "user", "content": message},
-        ], // 메시지 배열로 변경됩니다.
+        ],
       }),
     );
 

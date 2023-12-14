@@ -12,6 +12,45 @@ class Analysisresult extends StatefulWidget {
 }
 
 class _AnalysisresultState extends State<Analysisresult> {
+  String _response = '';
+  String _responseTimeText = '';
+
+  Future<void> _getResponse() async {
+    final startTime = DateTime.now();
+    final response = await http.post(
+      Uri.parse('https://api.openai.com/v1/chat/completions'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization':
+            'Bearer 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', // 여기에 실제 API 키 사용
+      },
+      body: jsonEncode(<String, dynamic>{
+        'model': 'ft:gpt-3.5-turbo-0613:personal::8VZbqytb', // 모델 ID 포함
+        'messages': [
+          {
+            'role': 'user',
+            'content':
+                '$name의 탈모상태는 $hairLossType이고 두피상태는 $scalpCondition. 메디헤어 일주일에 몇 번 사용하는지도 알려줘.'
+          },
+        ],
+      }),
+    );
+    final endTime = DateTime.now(); // 요청 완료 시간
+    final responseTime = endTime.difference(startTime);
+    if (response.statusCode == 200) {
+      var decodedBody = utf8.decode(response.bodyBytes); // UTF-8로 디코딩
+      var data = json.decode(decodedBody);
+      setState(() {
+        _response = data['choices'][0]['message']['content'];
+        _responseTimeText = 'Response time: ${responseTime.inMilliseconds}ms';
+      });
+    } else {
+      setState(() {
+        _response = 'Error: Failed to get response';
+      });
+    }
+  }
+
   final String email;
   _AnalysisresultState({required this.email});
   String name = '';
@@ -48,6 +87,7 @@ class _AnalysisresultState extends State<Analysisresult> {
         hairAge = hairData['Hair_Age'];
         date = hairData['Date'];
       });
+      _getResponse();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -57,43 +97,15 @@ class _AnalysisresultState extends State<Analysisresult> {
     }
   }
 
-  Future<String> textchoose() async {
-    String solutiontext = '';
-    if (hairLossType == '탈모 아님') {
-      solutiontext = '진우님의 모발 분석 결과 탈모가 아니며 모발의 밀도와 굵기 모두 정상입니다.';
-    } else if (hairLossType == '경증 탈모') {
-      solutiontext =
-          '진우님의 모발 분석 결과 경증 탈모로 모발의 밀도가 낮으나 부분적으로 두께가 굵은 모발이 있는 상황입니다.';
-    } else if (hairLossType == '중경증 탈모') {
-      solutiontext = '진우님의 모발 분석 결과 중경증 탈모로 모발의 밀도가 낮고 두께가 낮은 상황입니다.';
-    } else if (hairLossType == '중증 탈모') {
-      solutiontext =
-          '진우님의 모발 분석 결과 중증 탈모로 모발의 밀도가 낮고 모발 두께도 전체적으로 매우 얇은 상황입니다. 두피 진단 시 빈 모공이 2개 이상 관찰됩니다.';
-    } else {
-      solutiontext = '정확한 진단을 위해 다시 한번 검사를 실시하여 주세요.';
-    }
-    return solutiontext;
-  }
-
-  Future<String> textchoose2() async {
-    String solutiontext2 = '';
-    if (scalpCondition == '안전') {
-      solutiontext2 = '두피상태는 안전으로 두피 표면의 색상이 균일하며 각질이나 불순물이 확인되지 않습니다.';
-    } else if (scalpCondition == '양호') {
-      solutiontext2 = '두피상태는 양호로 홍반이나 피지 과다가 없으나, 작고 가루 같은 각질이 관찰됩니다.';
-    } else if (scalpCondition == '위험') {
-      solutiontext2 = '두피상태는 위험으로 작고 가루같은 각질이 종종 보이며, 두피에 갈라진 표면이 보입니다.';
-    } else if (scalpCondition == '심각') {
-      solutiontext2 =
-          '두피상태는 심각으로 작고 가루같은 각질이 많이 보이며, 두피 모공 주위에 나이테 모양의 표면이 보입니다.';
-    } else {
-      solutiontext2 = '정확한 진단을 위해 다시 한번 검사를 실시하여 주세요.';
-    }
-    return solutiontext2;
+  String formatTextWithLineBreaks(String text, int chunkSize) {
+    RegExp exp = RegExp('.{1,$chunkSize}');
+    Iterable<Match> matches = exp.allMatches(text);
+    return matches.map((m) => m.group(0)).join('\n');
   }
 
   @override
   Widget build(BuildContext context) {
+    String formattedResponse = formatTextWithLineBreaks(_response, 25);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
@@ -161,157 +173,159 @@ class _AnalysisresultState extends State<Analysisresult> {
                 width: width,
                 height: height * 0.34,
                 padding: const EdgeInsets.only(top: 28),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 25,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "$name님의 모발 분석 결과",
-                              style: const TextStyle(
+                child: Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "$name님의 모발 분석 결과",
+                                style: const TextStyle(
+                                    color: Color(0xFF51370E),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          Column(
+                            children: [
+                              const Text(
+                                "탈모 상태: ",
+                                style: TextStyle(
                                   color: Color(0xFF51370E),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 25,
-                        ),
-                        Column(
-                          children: [
-                            const Text(
-                              "탈모 상태: ",
-                              style: TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.04,
-                            ),
-                            const Text(
-                              "모발 밀도: ",
-                              style: TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: height * 0.04,
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.04,
-                            ),
-                            const Text(
-                              "모발 두께: ",
-                              style: TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                              const Text(
+                                "모발 밀도: ",
+                                style: TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.04,
-                            ),
-                            const Text(
-                              "두피 상태: ",
-                              style: TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: height * 0.04,
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              " $hairLossType",
-                              style: const TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                              const Text(
+                                "모발 두께: ",
+                                style: TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.033,
-                            ),
-                            Text(
-                              " $hairDensity(1cm²당)",
-                              style: const TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                              SizedBox(
+                                height: height * 0.04,
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.033,
-                            ),
-                            Text(
-                              " $hairThickness(µm)",
-                              style: const TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                              const Text(
+                                "두피 상태: ",
+                                style: TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.033,
-                            ),
-                            Text(
-                              " $scalpCondition",
-                              style: const TextStyle(
-                                color: Color(0xFF51370E),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                " $hairLossType",
+                                style: const TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                              height: 140,
-                            ),
-                            Text(
-                              "Analyzed by",
-                              style: TextStyle(
-                                fontSize: 12,
+                              SizedBox(
+                                height: height * 0.033,
                               ),
-                            ),
-                            Text(
-                              "SookSook AI(Efficient B0)",
-                              style: TextStyle(
-                                fontSize: 12,
+                              Text(
+                                " $hairDensity(1cm²당)",
+                                style: const TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "For 5.472 sec",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
+                              SizedBox(
+                                height: height * 0.033,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                              Text(
+                                " $hairThickness(µm)",
+                                style: const TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              SizedBox(
+                                height: height * 0.033,
+                              ),
+                              Text(
+                                " $scalpCondition",
+                                style: const TextStyle(
+                                  color: Color(0xFF51370E),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 140,
+                              ),
+                              Text(
+                                "Analyzed by",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                "SookSook AI(Efficient B0)",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                "Response time: 5472 ms",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -334,107 +348,71 @@ class _AnalysisresultState extends State<Analysisresult> {
                 ),
                 margin: const EdgeInsets.all(10),
                 width: width,
-                height: height * 0.3,
+                height: height * 0.48,
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "AI 추천 솔루션:",
-                            style: TextStyle(
-                              color: Color(0xFF51370E),
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "AI 추천 솔루션:",
+                          style: TextStyle(
+                            color: Color(0xFF51370E),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            width: width * 0.8,
-                            child: Column(
-                              children: [
-                                FutureBuilder<String>(
-                                  future:
-                                      textchoose(), // 여기에 Future<String> 함수를 넣습니다.
-                                  builder: (context, snapshot) {
-                                    // 연결 상태에 따라 다르게 처리
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator(); // 데이터를 기다리는 동안 로딩 표시
-                                    } else if (snapshot.hasError) {
-                                      return Text(
-                                          "Error: ${snapshot.error}"); // 에러 발생 시 표시
-                                    } else {
-                                      // 데이터가 성공적으로 반환되었을 때
-                                      return Text(
-                                        snapshot.data ?? "데이터 없음",
-                                        style: const TextStyle(fontSize: 17),
-                                      );
-                                    }
-                                  },
-                                ),
-                                FutureBuilder<String>(
-                                  future:
-                                      textchoose2(), // 여기에 Future<String> 함수를 넣습니다.
-                                  builder: (context, snapshot) {
-                                    // 연결 상태에 따라 다르게 처리
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator(); // 데이터를 기다리는 동안 로딩 표시
-                                    } else if (snapshot.hasError) {
-                                      return Text(
-                                          "Error: ${snapshot.error}"); // 에러 발생 시 표시
-                                    } else {
-                                      // 데이터가 성공적으로 반환되었을 때
-                                      return Text(
-                                        snapshot.data ?? "데이터 없음",
-                                        style: const TextStyle(fontSize: 17),
-                                      );
-                                    }
-                                  },
-                                ),
-                                const Text('')
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          formattedResponse,
+                          style: const TextStyle(color: Colors.black),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        SizedBox(
+                          width: width * 0.82,
+                          child: Column(
                             children: [
-                              Text(
-                                "Generative AI",
-                                style: TextStyle(fontSize: 12),
-                              )
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "GPT-3.5-turbo",
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "by fine-tuned model",
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    _responseTimeText,
+                                    softWrap: true,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "by GPT-4",
-                                style: TextStyle(fontSize: 12),
-                              )
-                            ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "For 3.024 sec",
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
