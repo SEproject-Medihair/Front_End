@@ -22,7 +22,7 @@ class _AnalysisresultState extends State<Analysisresult> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization':
-            'Bearer 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', // 여기에 실제 API 키 사용
+            'Bearer ', // 여기에 실제 API 키 사용
       },
       body: jsonEncode(<String, dynamic>{
         'model': 'ft:gpt-3.5-turbo-0613:personal::8VZbqytb', // 모델 ID 포함
