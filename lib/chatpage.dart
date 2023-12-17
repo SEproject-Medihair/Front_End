@@ -33,7 +33,7 @@ class _ChatPageState extends State<ChatPage> {
       Uri.parse('https://api.openai.com/v1/chat/completions'), // 변경된 엔드포인트
       headers: {
         'Authorization':
-            'Bearer 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', // API 키
+            'Bearer ', // API 키
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
